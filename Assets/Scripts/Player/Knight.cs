@@ -31,14 +31,9 @@ public class Knight : MonoBehaviour
     }
 
     private void FixedUpdate(){
-        if(isGround){
-            if(knight_ani){
-                knight_ani.SetBool("jump", false);
-            }
-        } else {
-            if(knight_ani){
-                knight_ani.SetBool("jump", true);
-            }
+        if(knight_ani){
+            knight_ani.SetBool("isGround", isGround);
+            knight_ani.SetFloat("yVelocity", knight_rb.velocity.y);
         }
 
         MoveHandle();
@@ -109,13 +104,15 @@ public class Knight : MonoBehaviour
 
     void Update()
     {
-        _canMoveLeft = Input.GetAxis("Horizontal") < 0;
-        _canMoveRight = Input.GetAxis("Horizontal") > 0;
-
-        if( IsGround() && Input.GetKeyDown(KeyCode.Space)){
-            if(isGround){
+        if(Input.GetKeyDown(KeyCode.Space)){
+            if(IsGround() || extraJumps > 0){
+                extraJumps--;
                 knight_rb.velocity = Vector2.up * jumpForce;
             }
+        }
+
+        if(IsGround() && extraJumps <= 0){
+            extraJumps = extraJumpValue;
         }
     }
 }

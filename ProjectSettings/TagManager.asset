@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - BringerOfDeath
+  - hook
   layers:
   - Default
   - TransparentFX

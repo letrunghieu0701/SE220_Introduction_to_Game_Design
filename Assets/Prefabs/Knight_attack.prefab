@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -7199635396185890261}
   m_Layer: 0
   m_Name: Knight_attack
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,3 +171,4 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 0
+  extraJumpValue: 0
