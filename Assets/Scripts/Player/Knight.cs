@@ -1,10 +1,11 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Knight : MonoBehaviour
 {
     public float moveSpeed;
+    public float runSpeed;
     public float jumpForce;
     bool _canMoveLeft;
     bool _canMoveRight;
@@ -40,8 +41,17 @@ public class Knight : MonoBehaviour
     }
 
     void MoveHandle(){
-        if(Input.GetKey(KeyCode.LeftArrow)){
-            knight_rb.velocity = new Vector2(-moveSpeed, knight_rb.velocity.y);
+        if(Input.GetKey(KeyCode.LeftArrow))
+        {
+            if (Input.GetKey(KeyCode.A)) // Chạy
+            {
+                knight_rb.velocity = new Vector2(-runSpeed, knight_rb.velocity.y);
+            }
+            else // Đi bộ
+            {
+                knight_rb.velocity = new Vector2(-moveSpeed, knight_rb.velocity.y);
+            }
+            
             if(facingRight){
                 Flip();
             }
@@ -49,8 +59,17 @@ public class Knight : MonoBehaviour
                 knight_ani.SetBool("walk", true);
             }
         }
-        else if(Input.GetKey(KeyCode.RightArrow)){
-            knight_rb.velocity = new Vector2(+moveSpeed, knight_rb.velocity.y);
+        else if(Input.GetKey(KeyCode.RightArrow))
+        {
+            if (Input.GetKey(KeyCode.A)) // Chạy
+            {
+                knight_rb.velocity = new Vector2(+runSpeed, knight_rb.velocity.y);
+            }
+            else  // Đi bộ
+            {
+                knight_rb.velocity = new Vector2(+moveSpeed, knight_rb.velocity.y);
+            }       
+
             if(!facingRight){
                 Flip();
             }
@@ -66,6 +85,8 @@ public class Knight : MonoBehaviour
                 knight_ani.SetBool("walk", false);
             }
         }
+
+        Debug.Log("Speed: " + knight_rb.velocity.x);
     }
 
     void Flip(){
@@ -104,14 +125,17 @@ public class Knight : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)){
-            if(IsGround() || extraJumps > 0){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsGround() || extraJumps > 0)
+            {
                 extraJumps--;
                 knight_rb.velocity = Vector2.up * jumpForce;
             }
         }
 
-        if(IsGround() && extraJumps <= 0){
+        if (IsGround() && extraJumps <= 0)
+        {
             extraJumps = extraJumpValue;
         }
     }
