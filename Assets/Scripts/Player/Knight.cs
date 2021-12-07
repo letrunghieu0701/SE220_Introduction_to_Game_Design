@@ -4,104 +4,101 @@ using UnityEngine;
 
 public class Knight : MonoBehaviour
 {
-    public float moveSpeed;
-    public float runSpeed;
-    public float jumpForce;
-    bool _canMoveLeft;
-    bool _canMoveRight;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private LayerMask whatIsWall;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float wallSlidingSpeed;
+    [SerializeField] private float checkRadius;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform wallCheck;
+    [SerializeField] private float wallJumpCoolDown;
+    [SerializeField] private float xWallJumpForce;
+
     Rigidbody2D knight_rb;
     Animator knight_ani;
     GamePadsController gamePadsController;
-    bool isDead;
-    bool facingRight = true;
+    private BoxCollider2D boxCollider2D;
 
     private bool isGround;
-    public Transform groundCheck;
-    public float checkRadius;
-    public LayerMask whatIsGround;
-    private int extraJumps;
-    public int extraJumpValue;
-    bool canJump;
+    private bool isWall;
+    private bool wallSliding;
+    private bool wallJumping;
+    private bool isDead;
+    private bool facingRight = true;
+    private bool canJump;
+    private float horizontalInput;
 
-    public bool CanMoveLeft { get => _canMoveLeft; set => _canMoveLeft = value; }
-    public bool CanMoveRight { get => _canMoveRight; set => _canMoveRight = value; }
-
-    private void Awake(){
+    private void Awake() {
         knight_rb = transform.GetComponent<Rigidbody2D>();
         knight_ani = GetComponent<Animator>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
-    private void FixedUpdate(){
+    private void FixedUpdate() {
         if(knight_ani){
             knight_ani.SetBool("isGround", isGround);
             knight_ani.SetFloat("yVelocity", knight_rb.velocity.y);
+            knight_ani.SetBool("walk", horizontalInput != 0);
         }
 
         MoveHandle();
     }
 
-    void MoveHandle(){
-        if(Input.GetKey(KeyCode.LeftArrow))
-        {
+    void MoveHandle() {
+        
+        if(Input.GetKey(KeyCode.LeftArrow)) {
             if (Input.GetKey(KeyCode.A)) // Chạy
             {
-                knight_rb.velocity = new Vector2(-runSpeed, knight_rb.velocity.y);
+                knight_rb.velocity = new Vector2(-moveSpeed * 2, knight_rb.velocity.y);
             }
             else // Đi bộ
             {
-                knight_rb.velocity = new Vector2(-moveSpeed, knight_rb.velocity.y);
+                knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
             }
             
             if(facingRight){
                 Flip();
             }
-            if(knight_ani){
-                knight_ani.SetBool("walk", true);
-            }
-        }
-        else if(Input.GetKey(KeyCode.RightArrow))
-        {
-            if (Input.GetKey(KeyCode.A)) // Chạy
-            {
-                knight_rb.velocity = new Vector2(+runSpeed, knight_rb.velocity.y);
-            }
-            else  // Đi bộ
-            {
-                knight_rb.velocity = new Vector2(+moveSpeed, knight_rb.velocity.y);
+            
+        } else if(Input.GetKey(KeyCode.RightArrow)) {
+            if (Input.GetKey(KeyCode.A)) { // Chạy
+                knight_rb.velocity = new Vector2(moveSpeed * 2, knight_rb.velocity.y);
+            } else  {// Đi bộ
+                knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
             }       
 
-            if(!facingRight){
+            if(!facingRight) {
                 Flip();
             }
-            if(knight_ani){
-                knight_ani.SetBool("walk", true);
-            }
-        }
-        else{
-            if(knight_rb){
+        } else {
+            if(knight_rb) {
                 knight_rb.velocity = new Vector2(0f, knight_rb.velocity.y);
             }
-            if(knight_ani){
-                knight_ani.SetBool("walk", false);
-            }
         }
-
-        Debug.Log("Speed: " + knight_rb.velocity.x);
     }
 
-    void Flip(){
+    private void Flip() {
         facingRight = !facingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;
     }
 
-    private bool IsGround(){
-        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
-        return isGround;
+    private void Jump() {
+        if (isGround == true) {
+            knight_rb.velocity = Vector2.up * jumpForce;
+        } else if(wallSliding == true) {
+            wallJumping = true;
+            Invoke("setWallJumpToFalse", wallJumpCoolDown);
+        }
     }
 
-    void Dead(){
+    void setWallJumpToFalse() {
+        wallJumping = false;
+    }
+
+    void Dead() {
         if(knight_ani){
             knight_ani.SetTrigger("die");
             isDead = true;
@@ -112,31 +109,36 @@ public class Knight : MonoBehaviour
         }
     }
 
-    private void OnCollision2D(Collision2D col){
-        if(col.gameObject.CompareTag("enemy")){
+    private void OnCollision2D(Collision2D col) {
+        if(col.gameObject.CompareTag("enemy")) {
             if(isDead) return;
         }
     }
 
-    void Start()
-    {
-        extraJumps = extraJumpValue;
-    }
+    void Update() {
+        isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isWall = Physics2D.OverlapCircle(wallCheck.position, checkRadius, whatIsGround);
+        horizontalInput = Input.GetAxis("Horizontal");
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (IsGround() || extraJumps > 0)
-            {
-                extraJumps--;
-                knight_rb.velocity = Vector2.up * jumpForce;
-            }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Jump();
         }
 
-        if (IsGround() && extraJumps <= 0)
-        {
-            extraJumps = extraJumpValue;
+        if(isWall == true && isGround == false && horizontalInput != 0) {
+            wallSliding = true;
+        } else {
+            wallSliding = false;
+        }
+
+        if(wallSliding) {
+            knight_rb.velocity = new Vector2(knight_rb.velocity.x, Mathf.Clamp(knight_rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+
+        if(wallJumping) {
+            Debug.Log(xWallJumpForce * -horizontalInput);
+            knight_rb.velocity = new Vector2(xWallJumpForce * -horizontalInput, jumpForce);
+            // knight_rb.velocity = new Vector2(15f * horizontalInput, 5f);
+            // knight_rb.AddForce (new Vector2 (xWallJumpForce * -horizontalInput, jumpForce), ForceMode2D.Impulse);
         }
     }
 }
