@@ -18,6 +18,25 @@ public class Bringer_death : MonoBehaviour
     [SerializeField] private Transform groundCheck, wallCheck;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float groundCheckDistance, wallCheckDistance;
+    [SerializeField] private float damage;
+    [SerializeField] private float movementDistance;
+    [SerializeField] private float speed;
+    private Animator ani;
+    private bool movingLeft;
+    private float leftEdge;
+    private float rightEdge;
+
+    private void Awake() {
+        ani = GetComponent<Animator>();
+        leftEdge = transform.position.x - movementDistance;
+        rightEdge = transform.position.x + movementDistance;
+    }
+
+    private void FixedUpdate() {
+        if(ani) {
+            ani.SetBool("walk", true);
+        }
+    }
 
     private void Update(){
         switch(currentState){
@@ -33,6 +52,29 @@ public class Bringer_death : MonoBehaviour
                 break;
             case State.Dead: UpdateDeadState();
                 break;
+        }
+
+        if(movingLeft) {
+            if(transform.position.x > leftEdge) {
+                transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
+            } else Flip();
+        } else {
+            if(transform.position.x < rightEdge) {
+                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+            } else Flip();
+        }
+    }
+
+    private void Flip() {
+        movingLeft = !movingLeft;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col) {
+        if(col.tag == "Player") {
+            col.GetComponent<Health>().TakeDamage(damage);
         }
     }
 

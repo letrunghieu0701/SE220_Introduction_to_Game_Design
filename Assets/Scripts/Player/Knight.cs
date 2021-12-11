@@ -17,11 +17,11 @@ public class Knight : MonoBehaviour
 
     Rigidbody2D knight_rb;
     Animator knight_ani;
-    GamePadsController gamePadsController;
     private BoxCollider2D boxCollider2D;
 
     private bool isGround;
     private bool isWall;
+    private bool isAttack;
     private bool wallSliding;
     private bool wallJumping;
     private bool isDead;
@@ -41,45 +41,44 @@ public class Knight : MonoBehaviour
             knight_ani.SetBool("isGround", isGround);
             knight_ani.SetFloat("yVelocity", knight_rb.velocity.y);
             knight_ani.SetBool("walk", horizontalInput != 0);
+            knight_ani.SetBool("attack", isAttack);
         }
 
-        MoveHandle();
+        if(isWallJumpOver == true) {
+            MoveHandle();
+        }
     }
 
     void MoveHandle() {
         
-        if(isWallJumpOver == true) {
-            if(Input.GetKey(KeyCode.LeftArrow)) {
-                if (Input.GetKey(KeyCode.A)) // Chạy
-                {
-                    knight_rb.velocity = new Vector2(-moveSpeed * 2, knight_rb.velocity.y);
-                }
-                else // Đi bộ
-                {
-                    knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
-                }
-                
-                if(facingRight){
-                    Flip();
-                }
-            } else if(Input.GetKey(KeyCode.RightArrow)) {
-                if (Input.GetKey(KeyCode.A)) { // Chạy
-                    knight_rb.velocity = new Vector2(moveSpeed * 2, knight_rb.velocity.y);
-                } else  {// Đi bộ
-                    knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
-                }       
+        if(Input.GetKey(KeyCode.LeftArrow)) {
+            if (Input.GetKey(KeyCode.A)) // Chạy
+            {
+                knight_rb.velocity = new Vector2(-moveSpeed * 2, knight_rb.velocity.y);
+            }
+            else // Đi bộ
+            {
+                knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
+            }
+            
+            if(facingRight){
+                Flip();
+            }
+        } else if(Input.GetKey(KeyCode.RightArrow)) {
+            if (Input.GetKey(KeyCode.A)) { // Chạy
+                knight_rb.velocity = new Vector2(moveSpeed * 2, knight_rb.velocity.y);
+            } else  {// Đi bộ
+                knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
+            }       
 
-                if(!facingRight) {
-                    Flip();
-                }
-            } else {
-                if(knight_rb) {
-                    knight_rb.velocity = new Vector2(0f, knight_rb.velocity.y);
-                }
+            if(!facingRight) {
+                Flip();
+            }
+        } else {
+            if(knight_rb) {
+                knight_rb.velocity = new Vector2(0f, knight_rb.velocity.y);
             }
         }
-
-        
     }
 
     private void Flip() {
@@ -104,6 +103,16 @@ public class Knight : MonoBehaviour
         wallJumping = false;
     }
 
+    void Attack() {
+        if(Input.GetKeyDown(KeyCode.Z)) {
+            isAttack = true;
+        }
+    }
+
+    void setAttackToFalse() {
+        isAttack = false;
+    }
+
     void Dead() {
         if(knight_ani){
             knight_ani.SetTrigger("die");
@@ -113,6 +122,14 @@ public class Knight : MonoBehaviour
         if(knight_rb){
             knight_rb.velocity = new Vector2(0f, knight_rb.velocity.y);
         }
+    }
+
+    public bool canShoot(){
+        return isGround || isWall || (!isGround && !isWall);
+    }
+
+    public bool GetIsWall() {
+        return isWall;
     }
 
     private void OnCollision2D(Collision2D col) {
@@ -128,6 +145,8 @@ public class Knight : MonoBehaviour
 
         Jump();
 
+        Attack();
+
         if(isWall == true && isGround == false && horizontalInput != 0) {
             wallSliding = true;
             isWallJumpOver = false;
@@ -142,7 +161,6 @@ public class Knight : MonoBehaviour
 
         if(wallJumping) {
             knight_rb.velocity = new Vector2(xWallJumpForce * -horizontalInput, jumpForce);
-            // knight_rb.AddForce (new Vector2 (xWallJumpForce * -horizontalInput, jumpForce), ForceMode2D.Impulse);
         }
     }
 }
