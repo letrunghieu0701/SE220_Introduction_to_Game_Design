@@ -24,15 +24,17 @@ public class Health : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
-        if(currentHealth > 0) {
-            ani.SetTrigger("hurt");
-            StartCoroutine(Invunerability());
-        } else {
-            if(!isDead) {
-                ani.SetTrigger("Die");
-                knight.enabled = false;
-                isDead = true;
+        if(knight.GetIsDashing() == false) {
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
+            if(currentHealth > 0) {
+                ani.SetTrigger("hurt");
+                StartCoroutine(Invunerability());
+            } else {
+                if(!isDead) {
+                    ani.SetTrigger("Die");
+                    knight.enabled = false;
+                    isDead = true;
+                }
             }
         }
     }

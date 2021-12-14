@@ -14,10 +14,12 @@ public class Knight : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private float wallJumpCoolDown;
     [SerializeField] private float xWallJumpForce;
+    [SerializeField] private float dashDistance = 10f;
 
     Rigidbody2D knight_rb;
     Animator knight_ani;
     private BoxCollider2D boxCollider2D;
+    private KeyCode lastKeyCode;
 
     private bool isGround;
     private bool isWall;
@@ -28,7 +30,10 @@ public class Knight : MonoBehaviour
     private bool facingRight = true;
     private bool canJump;
     private bool isWallJumpOver;
+    private bool isDashing;
+
     private float horizontalInput;
+    private float doubleTapTime;
 
     private void Awake() {
         knight_rb = transform.GetComponent<Rigidbody2D>();
@@ -42,9 +47,10 @@ public class Knight : MonoBehaviour
             knight_ani.SetFloat("yVelocity", knight_rb.velocity.y);
             knight_ani.SetBool("walk", horizontalInput != 0);
             knight_ani.SetBool("attack", isAttack);
+            knight_ani.SetBool("dash", isDashing);
         }
 
-        if(isWallJumpOver == true) {
+        if(isWallJumpOver == true && isDashing == false) {
             MoveHandle();
         }
     }
@@ -52,24 +58,13 @@ public class Knight : MonoBehaviour
     void MoveHandle() {
         
         if(Input.GetKey(KeyCode.LeftArrow)) {
-            if (Input.GetKey(KeyCode.A)) // Chạy
-            {
-                knight_rb.velocity = new Vector2(-moveSpeed * 2, knight_rb.velocity.y);
-            }
-            else // Đi bộ
-            {
-                knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
-            }
+            knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
             
             if(facingRight){
                 Flip();
             }
         } else if(Input.GetKey(KeyCode.RightArrow)) {
-            if (Input.GetKey(KeyCode.A)) { // Chạy
-                knight_rb.velocity = new Vector2(moveSpeed * 2, knight_rb.velocity.y);
-            } else  {// Đi bộ
-                knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
-            }       
+            knight_rb.velocity = new Vector2(moveSpeed * horizontalInput, knight_rb.velocity.y);
 
             if(!facingRight) {
                 Flip();
@@ -105,7 +100,9 @@ public class Knight : MonoBehaviour
 
     void Attack() {
         if(Input.GetKeyDown(KeyCode.Z)) {
-            isAttack = true;
+            if(isWall == false && isGround == true) {
+                isAttack = true;
+            }
         }
     }
 
@@ -132,10 +129,17 @@ public class Knight : MonoBehaviour
         return isWall;
     }
 
-    private void OnCollision2D(Collision2D col) {
-        if(col.gameObject.CompareTag("enemy")) {
-            if(isDead) return;
+    public bool GetIsDashing() {
+        return isDashing;
+    }
+
+    private IEnumerator Dash(float dir) {
+        if(isDashing == true) {
+            knight_rb.velocity = new Vector2(knight_rb.velocity.x, knight_rb.velocity.y);
+            knight_rb.AddForce(new Vector2(dashDistance * dir, knight_rb.velocity.y), ForceMode2D.Impulse);
         }
+        yield return new WaitForSeconds(0.4f);
+        isDashing = false;
     }
 
     void Update() {
@@ -147,7 +151,7 @@ public class Knight : MonoBehaviour
 
         Attack();
 
-        if(isWall == true && isGround == false && horizontalInput != 0) {
+        if(isWall == true && isGround == false && (horizontalInput <= -1 || horizontalInput >= 1)) {
             wallSliding = true;
             isWallJumpOver = false;
         } else {
@@ -161,6 +165,19 @@ public class Knight : MonoBehaviour
 
         if(wallJumping) {
             knight_rb.velocity = new Vector2(xWallJumpForce * -horizontalInput, jumpForce);
+        }
+
+        if(Input.GetKeyDown(KeyCode.C)) {
+            if(doubleTapTime > Time.time && lastKeyCode == KeyCode.C) {
+                if(horizontalInput != 0) {
+                    isDashing = true;
+                    StartCoroutine(Dash(horizontalInput));
+                }
+            } else {
+                doubleTapTime = Time.time + 1f;
+            }
+
+            lastKeyCode = KeyCode.C;
         }
     }
 }

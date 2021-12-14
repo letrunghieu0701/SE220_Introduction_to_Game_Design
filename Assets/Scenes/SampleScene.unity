@@ -1785,6 +1785,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1174596563, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Size.y
+      value: 1.380451
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174596563, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.070457816
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982011910, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Size.x
+      value: 0.49255753
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982011910, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.016996384
+      objectReference: {fileID: 0}
     - target: {fileID: 4889847748298051075, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_Name
       value: Knight_attack
@@ -1832,6 +1848,22 @@ PrefabInstance:
     - target: {fileID: 4889847748298051100, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794283936359933055, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Size.x
+      value: 0.5141485
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794283936359933055, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2050011
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794283936359933055, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.093447804
+      objectReference: {fileID: 0}
+    - target: {fileID: 7794283936359933055, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.60431015
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
@@ -5064,6 +5096,7 @@ Transform:
   - {fileID: 970641345}
   - {fileID: 1700703712}
   - {fileID: 429292364}
+  - {fileID: 1964728369}
   m_Father: {fileID: 113766141}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
