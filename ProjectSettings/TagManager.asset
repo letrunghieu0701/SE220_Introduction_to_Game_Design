@@ -8,6 +8,8 @@ TagManager:
   - BringerOfDeath
   - hook
   - Enemy
+  - Dangerous
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Monster Bullet
+  - Monster
   - Ground
   - Wall
   - Player
