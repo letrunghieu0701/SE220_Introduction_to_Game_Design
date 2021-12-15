@@ -146,11 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  wallCheck: {fileID: 596159215008816864, guid: 3408e9469d4a2b941ad1603f4de1ce46, type: 3}
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 256
-  checkRadius: 0
+  damage: 2
 --- !u!95 &7751162766906391362
 Animator:
   serializedVersion: 3
