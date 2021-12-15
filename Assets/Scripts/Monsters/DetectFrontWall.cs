@@ -13,6 +13,14 @@ public class DetectFrontWall : MonoBehaviour
         }   
     }
 
+    private void OnTriggerStay2D(Collider2D collider2D)
+    {
+        if(collider2D.CompareTag("Ground"))
+        {
+            frontWall = true;
+        } 
+    }
+
     private void OnTriggerExit2D(Collider2D collider2D) 
     {
         if(collider2D.CompareTag("Ground"))

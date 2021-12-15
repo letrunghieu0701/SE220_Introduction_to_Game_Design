@@ -160,7 +160,7 @@ MonoBehaviour:
   fireBall: {fileID: 3004532975229214779, guid: b47158f74e358af478d8c48f57a1350f, type: 3}
   shootPos: {fileID: 7099047111846316089}
   bulletDamage: 1
-  timeBetweenEachBullet: 4
+  timeBetweenEachBullet: 2.5
   delayBeforeFirstBullet: 1
   timeBulletReachTarget: 1
 --- !u!50 &7099047112089172015
