@@ -20,6 +20,8 @@ public class Monster : MonoBehaviour
     protected bool isAllowToUpdate = true;
     protected bool playerDetected = false;
     protected bool isDead = false;
+    protected bool isHurt = false;
+    protected MonsterStateMachine stateMachine;
 
     protected Animator animator;
     protected GameObject player;
@@ -50,13 +52,20 @@ public class Monster : MonoBehaviour
         playerDetected = detectionRange.GetComponent<DetectionRange>().playerDetected;
     }
 
-    public void TakeDamage (int damage)
+    protected void MoveToPosition (Vector2 pos, float speed)
+    {
+        Vector2 newPos = Vector2.MoveTowards(rb.position, pos, speed * Time.fixedDeltaTime);
+        rb.MovePosition(newPos);
+    }
+
+    public virtual void TakeDamage (int damage)
     {
         if (!isDead)
         {
             if (!isImmune)
             {
                 animator.SetTrigger("hurt");
+                isHurt = true;
 
                 health -= damage;
 
@@ -67,7 +76,7 @@ public class Monster : MonoBehaviour
                     isAllowToUpdate = false;
 
                     rb.velocity = Vector2.zero;
-                    rb.isKinematic = true;
+                    //rb.isKinematic = true;
 
                     body.SetActive(false);
                     animator.SetTrigger("die");
@@ -77,6 +86,31 @@ public class Monster : MonoBehaviour
                     isImmune = true;
                 }
             }
+        }
+    }
+
+    protected void IsAllowToMove(bool allow)
+    {
+        if (!allow)
+        {
+            rb.velocity = Vector2.zero;
+            rb.isKinematic = true;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
+    }
+
+    protected void CheckFlipMovingToPosition(Vector2 pos)
+    {
+        if (pos.x < transform.position.x && facingRight)
+        {
+            Flip();
+        }
+        else if (pos.x > transform.position.x && !facingRight)
+        {
+            Flip();
         }
     }
 
