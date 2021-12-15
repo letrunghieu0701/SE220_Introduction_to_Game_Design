@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectTile : MonoBehaviour
-{
+{   
     [SerializeField] private float speed;
+    [SerializeField] private int damage;
     private bool hit;
     private bool isWall;
     private float direction;
@@ -31,9 +32,14 @@ public class ProjectTile : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
-        hit = true;
-        collider.enabled = false;
-        ani.SetTrigger("explote");
+        if(col.tag == "Monster" || col.tag == "Ground") {
+            hit = true;
+            collider.enabled = false;
+            ani.SetTrigger("explote");
+            if(col.tag == "Monster") {
+                col.GetComponent<Monster>().TakeDamage(damage);
+            }
+        }
     }
 
     public void SetDirection(float dir) {
