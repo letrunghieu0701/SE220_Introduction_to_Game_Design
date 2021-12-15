@@ -74,7 +74,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23610115, y: -0.13034165}
+  m_Offset: {x: -0.23610115, y: -0.070457816}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -85,7 +85,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5277977, y: 1.2606833}
+  m_Size: {x: 0.5277977, y: 1.380451}
   m_EdgeRadius: 0
 --- !u!1 &1982011908
 GameObject:
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.020853043, y: 0.003471017}
+  m_Offset: {x: 0.016996384, y: 0.003471017}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -142,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.50027084, y: 0.20165992}
+  m_Size: {x: 0.49255753, y: 0.20165992}
   m_EdgeRadius: 0
 --- !u!1 &4889847748298051075
 GameObject:
@@ -316,17 +316,15 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 512
+  groundCheck: {fileID: 1982011909}
+  wallCheck: {fileID: 1174596562}
+  checkRadius: 0.5
   moveSpeed: 7
   jumpForce: 18
   wallSlidingSpeed: 3
-  checkRadius: 0.5
-  groundCheck: {fileID: 1982011909}
-  wallCheck: {fileID: 1174596562}
+  xWallJumpForce: 10
+  dashDistance: 10
   wallJumpCoolDown: 0.05
-  xWallJumpForce: 3
 --- !u!114 &406073645
 MonoBehaviour:
   m_ObjectHideFlags: 0

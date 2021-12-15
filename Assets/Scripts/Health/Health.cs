@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        if(knight.GetIsDashing() == false) {
+        // if(knight.GetIsDashing() == false) {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
             if(currentHealth > 0) {
                 ani.SetTrigger("hurt");
@@ -36,7 +36,7 @@ public class Health : MonoBehaviour
                     isDead = true;
                 }
             }
-        }
+        // }
     }
 
     public void Heal(float health) {
