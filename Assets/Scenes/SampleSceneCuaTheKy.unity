@@ -1636,11 +1636,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.510583, y: 0.42727792}
   m_EdgeRadius: 0
---- !u!1 &568150724 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1962136278490689231, guid: 0b188b0edd277b246bca6eef0e58ad51, type: 3}
-  m_PrefabInstance: {fileID: 6835934874314062604}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &575335664
 GameObject:
   m_ObjectHideFlags: 0
@@ -8755,14 +8750,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6835934875247779189, guid: 0b188b0edd277b246bca6eef0e58ad51, type: 3}
-      propertyPath: health
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6835934875247779189, guid: 0b188b0edd277b246bca6eef0e58ad51, type: 3}
-      propertyPath: frontWall
-      value: 
-      objectReference: {fileID: 568150724}
     - target: {fileID: 6835934875247779193, guid: 0b188b0edd277b246bca6eef0e58ad51, type: 3}
       propertyPath: m_Name
       value: Flying Eye
