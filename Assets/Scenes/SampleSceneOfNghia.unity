@@ -3266,6 +3266,18 @@ PrefabInstance:
       propertyPath: fireballs.Array.data[9]
       value: 
       objectReference: {fileID: 1940776201}
+    - target: {fileID: 1670489089, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2957344
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670489089, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670489089, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.30277634
+      objectReference: {fileID: 0}
     - target: {fileID: 4889847748298051075, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_Name
       value: Knight_attack
