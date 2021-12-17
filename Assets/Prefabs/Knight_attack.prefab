@@ -435,5 +435,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealth: 10
-  iFrameDuration: 1
+  iFrameDuration: 2
   numOfFlashes: 3
