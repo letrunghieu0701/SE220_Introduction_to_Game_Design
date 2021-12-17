@@ -17,7 +17,7 @@ public class playerAttack : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.X) && coolDownTimer > cutCoolDown && knight.canShoot()) {
+        if(Input.GetKeyDown(KeyCode.C) && coolDownTimer > cutCoolDown && knight.canShoot()) {
             Shoot();
         }
 

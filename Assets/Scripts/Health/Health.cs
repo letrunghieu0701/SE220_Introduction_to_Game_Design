@@ -34,6 +34,7 @@ public class Health : MonoBehaviour
                 if(!isDead) {
                     ani.SetTrigger("Die");
                     knight.enabled = false;
+                    knight.SetIsDead(true);
                     isDead = true;
                 }
             }
