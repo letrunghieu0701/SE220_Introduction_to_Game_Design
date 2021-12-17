@@ -9,6 +9,7 @@ public class OldGuardianControl : Monster
     [SerializeField][Range(0f, 10f)] private float smoothSpeedAfterDeadTime = 0.5f;
     [SerializeField] private GameObject chimneySmoke;
     [SerializeField] private float delayBetweenEachSmoke = 0.07f;
+    [SerializeField] private GameObject bossGate;
 
     [Header("Each State: ")]
     [SerializeField] private float restTime = 5f;
@@ -244,39 +245,42 @@ public class OldGuardianControl : Monster
             }
         }
 
-        if (!isDead)
+        if (bossGate.GetComponent<BossGateControl>().areBossGatesUpdated)
         {
-            if (!startBattle)
+            if (!isDead)
             {
-                isImmune = true;
-
-                state.CountDown();
-
-                if (state.timer / state.time <= 0.3f)
+                if (!startBattle)
                 {
-                    LookAtTarget(player.transform.position);
-                }
+                    isImmune = true;
 
-                if (state.timer / state.time <= 0.5f)
-                {
-                    animator.enabled = true;
-                }
+                    state.CountDown();
 
-                if (state.timer / state.time <= 0.8f)
-                {
-                    chimneySmoke.GetComponent<ChimneyControl>().isSmoking = true;
-                }
+                    if (state.timer / state.time <= 0.3f)
+                    {
+                        LookAtTarget(player.transform.position);
+                    }
 
-                if (state.timeSup)
-                {
-                    startBattle = true;
-                    isImmune = false;
-                    body.SetActive(true);
-                    SlamRange.GetComponent<AttackRangeDetection>().isInRange = false;
-                    SlashRange.GetComponent<AttackRangeDetection>().isInRange = false;
-                    
-                    state = new State("delay between each bullet", delayBetweenEachBullet);
-                    state.ResetState();
+                    if (state.timer / state.time <= 0.5f)
+                    {
+                        animator.enabled = true;
+                    }
+
+                    if (state.timer / state.time <= 0.8f)
+                    {
+                        chimneySmoke.GetComponent<ChimneyControl>().isSmoking = true;
+                    }
+
+                    if (state.timeSup)
+                    {
+                        startBattle = true;
+                        isImmune = false;
+                        body.SetActive(true);
+                        SlamRange.GetComponent<AttackRangeDetection>().isInRange = false;
+                        SlashRange.GetComponent<AttackRangeDetection>().isInRange = false;
+                        
+                        state = new State("delay between each bullet", delayBetweenEachBullet);
+                        state.ResetState();
+                    }
                 }
             }
         }
