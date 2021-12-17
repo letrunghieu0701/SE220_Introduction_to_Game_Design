@@ -38,11 +38,13 @@ public class FlyingEyeControl : Monster
             if (i == 0)
             {
                 state = new State("stay still about to attack", stayStillTime0);
+                state.ResetState();
                 states.Add(state);
             }
             else if (i == 1)
             {
                 state = new State("fly up after attack", flyUpTime1);
+                state.ResetState();
                 states.Add(state);
             }
         }
@@ -50,6 +52,7 @@ public class FlyingEyeControl : Monster
         stateMachine = new MonsterStateMachine(states);
 
         state = new State("rest after hurt", restAfterHurt);
+        state.ResetState();
     }
 
     // Update is called once per frame

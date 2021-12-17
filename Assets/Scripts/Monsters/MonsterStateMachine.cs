@@ -37,4 +37,9 @@ public class MonsterStateMachine
         }
     }
     
+    public void SkipState()
+    {
+        states[stateOrder].ResetState();
+        stateOrder++;
+    }
 }

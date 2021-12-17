@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterBullet : MonoBehaviour
 {
     public int damage = 1;
+    public bool rotateBaseOnVector = true;
 
     protected Animator animator;
     protected Rigidbody2D rb;
@@ -17,13 +18,16 @@ public class MonsterBullet : MonoBehaviour
 
     protected virtual void Update() 
     {
-        if (!animator.GetBool("isHitted"))
+        if (rotateBaseOnVector)
         {
-            transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, rb.velocity));
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            if (!animator.GetBool("isHitted"))
+            {
+                transform.rotation = Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.right, rb.velocity));
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
         }
     }
 
