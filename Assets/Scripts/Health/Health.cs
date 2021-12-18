@@ -31,12 +31,13 @@ public class Health : MonoBehaviour
                 StartCoroutine(Invunerability());
                 knight.SetIsHurting(true);
             } else {
-                if(!isDead) {
-                    ani.SetTrigger("Die");
-                    knight.enabled = false;
-                    knight.SetIsDead(true);
-                    isDead = true;
-                }
+                currentHealth = playerHealth;
+                // if(!isDead) {
+                //     ani.SetTrigger("Die");
+                //     knight.enabled = false;
+                //     knight.SetIsDead(true);
+                //     isDead = true;
+                // }
             }
         }
     }
