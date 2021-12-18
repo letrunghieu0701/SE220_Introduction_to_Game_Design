@@ -175,15 +175,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 40
   speed: 0
-  immuneTime: 1
+  immuneTime: 0
   bodyDamage: 1
   detectionRange: {fileID: 4358434583433136103}
   body: {fileID: 2618234538346484168}
   destroyObjAfterDieDelay: 5
+  flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
+  flashingDelay: 0.3
+  enableHurtFlashing: 1
   smoothSpeedTime: 0
   smoothSpeedAfterDeadTime: 0.6
   chimneySmoke: {fileID: 7769808623456766333}
   delayBetweenEachSmoke: 0.08
+  bossGate: {fileID: 0}
   restTime: 15
   restStateName: Rest before combat
   stateTime0: 10

@@ -201,6 +201,7 @@ public class OldGuardianControl : Monster
         isAnimationFinished = false;
         animator.enabled = false;
         body.SetActive(false);
+        isImmune = true;
 
         // TEST
         // behavioralStateMachine.stateOrder = 4;
@@ -589,6 +590,10 @@ public class OldGuardianControl : Monster
             if (!isImmune)
             {
                 isHurt = true;
+                if (enableHurtFlashing)
+                {
+                    StartCoroutine(HurtFlashing());
+                }
 
                 health -= damage;
 

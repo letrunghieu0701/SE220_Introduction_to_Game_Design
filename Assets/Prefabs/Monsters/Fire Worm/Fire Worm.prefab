@@ -157,6 +157,9 @@ MonoBehaviour:
   detectionRange: {fileID: 7099047111623680342}
   body: {fileID: 3639492397301696104}
   destroyObjAfterDieDelay: 5
+  flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
+  flashingDelay: 0.3
+  enableHurtFlashing: 1
   fireBall: {fileID: 3004532975229214779, guid: b47158f74e358af478d8c48f57a1350f, type: 3}
   shootPos: {fileID: 7099047111846316089}
   bulletDamage: 1

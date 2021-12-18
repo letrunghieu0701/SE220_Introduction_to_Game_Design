@@ -53,6 +53,8 @@ public class FlyingEyeControl : Monster
 
         state = new State("rest after hurt", restAfterHurt);
         state.ResetState();
+
+        enableHurtFlashing = false;
     }
 
     // Update is called once per frame
@@ -76,6 +78,7 @@ public class FlyingEyeControl : Monster
 
                 animator.SetBool("attack", false);
                 animator.SetBool("about to attack", false);
+                body.GetComponent<MonsterBody>().damaged = false;
                 stateMachine.Reset();
                 state.CountDown();
 
@@ -123,6 +126,8 @@ public class FlyingEyeControl : Monster
                     {
                         attacked = false;
                         animator.SetBool("attack", false);
+                        body.GetComponent<MonsterBody>().damaged = false;
+
                         stateMachine.Run();
                         IsAllowToMove(false);
 
