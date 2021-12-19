@@ -12,6 +12,10 @@ public class Monster : MonoBehaviour
     [SerializeField] protected GameObject detectionRange;
     [SerializeField] protected GameObject body;
     [SerializeField] protected float destroyObjAfterDieDelay = 5f;
+    [SerializeField] protected Material flashMat;
+    [SerializeField] protected float flashingDelay = 0.3f;
+    [SerializeField] protected bool enableHurtFlashing = true;
+
 
     protected bool isImmune = false;
     protected float immuneTimer;
@@ -21,8 +25,9 @@ public class Monster : MonoBehaviour
     protected bool playerDetected = false;
     protected bool isDead = false;
     protected bool isHurt = false;
-    protected MonsterStateMachine stateMachine;
+    protected State flashingState;
 
+    protected MonsterStateMachine stateMachine;
     protected Animator animator;
     protected GameObject player;
     protected Rigidbody2D rb;
@@ -32,9 +37,13 @@ public class Monster : MonoBehaviour
         animator = GetComponent<Animator>();
         player = GameObject.FindWithTag("Player");
         rb = GetComponent<Rigidbody2D>();
+        this.GetComponent<Renderer>().material = new Material(flashMat);
 
         immuneTimer = immuneTime;
         body.GetComponent<MonsterBody>().bodyDamage = bodyDamage;
+
+        flashingState = new State("flashing time", flashingDelay);
+        flashingState.ResetState();
     }
 
     protected virtual void FixedUpdate() 
@@ -52,6 +61,13 @@ public class Monster : MonoBehaviour
         playerDetected = detectionRange.GetComponent<DetectionRange>().playerDetected;
     }
 
+    protected IEnumerator HurtFlashing()
+    {
+        this.GetComponent<Renderer>().material.SetInt("_isFlashing", 1);
+        yield return new WaitForSeconds(flashingDelay);
+        this.GetComponent<Renderer>().material.SetInt("_isFlashing", 0);
+    }
+
     protected void MoveToPosition (Vector2 pos, float speed)
     {
         Vector2 newPos = Vector2.MoveTowards(rb.position, pos, speed * Time.fixedDeltaTime);
@@ -66,6 +82,10 @@ public class Monster : MonoBehaviour
             {
                 animator.SetTrigger("hurt");
                 isHurt = true;
+                if (enableHurtFlashing)
+                {
+                    StartCoroutine(HurtFlashing());
+                }
 
                 health -= damage;
 

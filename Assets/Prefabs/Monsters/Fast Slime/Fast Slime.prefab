@@ -175,6 +175,9 @@ MonoBehaviour:
   detectionRange: {fileID: 5537036779105659533}
   body: {fileID: 6124353180455123641}
   destroyObjAfterDieDelay: 1
+  flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
+  flashingDelay: 0.3
+  enableHurtFlashing: 1
   normalSpeed: 5
   crazySpeed: 40
   normalSpeedTime: 0.7
