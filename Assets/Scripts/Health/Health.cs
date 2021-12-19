@@ -14,7 +14,6 @@ public class Health : MonoBehaviour
     private Animator ani;
     private Knight knight;
     public float currentHealth { get; private set;}
-    private bool isDead;
 
     private void Awake() {
         currentHealth = playerHealth;
@@ -31,13 +30,14 @@ public class Health : MonoBehaviour
                 StartCoroutine(Invunerability());
                 knight.SetIsHurting(true);
             } else {
-                currentHealth = playerHealth;
-                // if(!isDead) {
-                //     ani.SetTrigger("Die");
-                //     knight.enabled = false;
-                //     knight.SetIsDead(true);
-                //     isDead = true;
-                // }
+                if(!knight.GetIsDead()) {
+                    ani.SetBool("Dead", true);
+                    knight.SetIsDead(true);
+                    knight.enabled = false;
+                    currentHealth = playerHealth;
+                }
+                
+                
             }
         }
     }
@@ -50,6 +50,12 @@ public class Health : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.E)) {
             TakeDamage(1);
         }
+    }
+
+    private void enable() {
+        Destroy(gameObject);
+        LevelManager.instance.Respawn();
+        gameObject.SetActive(false);
     }
 
     private IEnumerator Invunerability() {

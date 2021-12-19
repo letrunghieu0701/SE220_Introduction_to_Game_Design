@@ -24,6 +24,7 @@ public class Knight : MonoBehaviour
     Animator knight_ani;
     private BoxCollider2D boxCollider2D;
     private KeyCode lastKeyCode;
+    private Vector3 respawnPoint;
 
     private bool isGround;
     private bool isWall;
@@ -44,11 +45,14 @@ public class Knight : MonoBehaviour
     private float doubleTapTime;
     private float undamageTime = 2f;
     private float undamageCoolDown;
+    private float gravity;
 
     private void Awake() {
         knight_rb = transform.GetComponent<Rigidbody2D>();
         knight_ani = GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        respawnPoint = transform.position;
+        gravity = knight_rb.gravityScale;
     }
 
     private void FixedUpdate() {
@@ -76,6 +80,60 @@ public class Knight : MonoBehaviour
 
         if(isWallJumpOver == true && isDashing == false) {
             MoveHandle();
+        }
+    }
+
+    void Update() {
+        horizontalInput = Input.GetAxis("Horizontal");
+        undamageCoolDown += Time.deltaTime;
+
+        KeyHandle();
+        HandleOnAir();
+
+        if(isDead == true) {
+            knight_rb.gravityScale = 0;
+            horizontalInput = 0;
+        }
+
+        if(undamageCoolDown > undamageTime) {
+            isHurting = false;
+        }
+
+        if(wallSliding == true) {
+            knight_rb.velocity = new Vector2(knight_rb.velocity.x, Mathf.Clamp(knight_rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+
+        if(wallJumping) {
+            if(stopHorizontal == false) {
+                knight_rb.velocity = new Vector2(xWallJumpForce * -horizontalInput, jumpForce);
+                StartCoroutine(StopHorizontal());
+            }
+        }
+
+        if(isDashing == true && isWall == true) {
+            knight_rb.gravityScale = gravity;
+            isDashing = false;
+        }
+    }
+
+    private void KeyHandle() {
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            Jump();
+        }
+
+        if(Input.GetKeyDown(KeyCode.X)) {
+            Attack();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Z)) {
+            if(horizontalInput != 0) {
+                isDashing = true;
+                StartCoroutine(Dash(horizontalInput));
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)) {
+            transform.position = respawnPoint;
         }
     }
 
@@ -112,6 +170,10 @@ public class Knight : MonoBehaviour
         isDead = var;
     }
 
+    public bool GetIsDead() {
+        return isDead;
+    }
+
     public bool GetIsHurting() {
         return isHurting;
     }
@@ -124,7 +186,7 @@ public class Knight : MonoBehaviour
     }
 
     private void Jump() {
-        if (isGround == true) {
+        if (isGround == true && isDashing == false) {
             knight_rb.velocity = Vector2.up * jumpForce;
             canJump = true;
         } else if(wallSliding == true) {
@@ -153,12 +215,14 @@ public class Knight : MonoBehaviour
 
     void Attack() {
         
-        if(isWall == false && isGround == true) {
+        if(isWall == false && isGround == true && !this.knight_ani.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
             isAttack = true;
         }
 
-        if(isWall == false && isGround == false) {
+        if(isGround == false && !this.knight_ani.GetCurrentAnimatorStateInfo(1).IsName("jumpattack")) {
             jumpAttack = true;
+        } else {
+            jumpAttack = false;
         }
     }
 
@@ -189,7 +253,6 @@ public class Knight : MonoBehaviour
     }
 
     private IEnumerator Dash(float dir) {
-        float gravity = knight_rb.gravityScale;
         if(isDashing == true) {
             knight_rb.gravityScale = 0;
             knight_rb.velocity = new Vector2(knight_rb.velocity.x, 0f);
@@ -206,45 +269,9 @@ public class Knight : MonoBehaviour
         stopHorizontal = false;
     }
 
-    void Update() {
-        horizontalInput = Input.GetAxis("Horizontal");
-        undamageCoolDown += Time.deltaTime;
-
-        HandleOnAir();
-
-        if(isDead == true) {
-            knight_rb.gravityScale = 0;
-            horizontalInput = 0;
-        }
-
-        if(undamageCoolDown > undamageTime) {
-            isHurting = false;
-        }
-
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            Jump();
-        }
-
-        if(Input.GetKeyDown(KeyCode.X)) {
-            Attack();
-        }
-
-        if(wallSliding == true) {
-            knight_rb.velocity = new Vector2(knight_rb.velocity.x, Mathf.Clamp(knight_rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
-        }
-
-        if(wallJumping) {
-            if(stopHorizontal == false) {
-                knight_rb.velocity = new Vector2(xWallJumpForce * -horizontalInput, jumpForce);
-                StartCoroutine(StopHorizontal());
-            }
-        }
-
-        if(Input.GetKeyDown(KeyCode.Z)) {
-            if(horizontalInput != 0) {
-                isDashing = true;
-                StartCoroutine(Dash(horizontalInput));
-            }
+    private void OnTriggerEnter2D(Collider2D col) {
+        if(col.tag == "CheckPoint") {
+            respawnPoint = transform.position;
         }
     }
 }
