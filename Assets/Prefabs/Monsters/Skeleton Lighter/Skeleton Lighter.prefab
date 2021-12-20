@@ -270,7 +270,7 @@ MonoBehaviour:
   health: 20
   speed: 10
   _smoothSpeedTime: 0
-  immuneTime: 1
+  immuneTime: 1.1
   bodyDamage: 1
   detectionRange: {fileID: 4138183468299870508}
   body: {fileID: 2397133989652548672}
