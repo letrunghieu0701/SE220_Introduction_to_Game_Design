@@ -7,6 +7,7 @@ public class Monster : MonoBehaviour
     [Header("Self :")]
     [SerializeField] protected int health;
     [SerializeField] protected float speed;
+    [SerializeField][Range(0f, 10f)] private float _smoothSpeedTime = 0f;
     [SerializeField] protected float immuneTime = 1f;
     [SerializeField] protected int bodyDamage = 1;
     [SerializeField] protected GameObject detectionRange;
@@ -25,7 +26,10 @@ public class Monster : MonoBehaviour
     protected bool playerDetected = false;
     protected bool isDead = false;
     protected bool isHurt = false;
+    protected bool _isAnimationFinished = false;
     protected State flashingState;
+    protected Vector3 _positionMovingTo;
+    protected Vector3 _currentVelocity = Vector3.zero;
 
     protected MonsterStateMachine stateMachine;
     protected Animator animator;
@@ -106,6 +110,54 @@ public class Monster : MonoBehaviour
                     isImmune = true;
                 }
             }
+        }
+    }
+
+
+    protected void _CheckAnimationStart()
+    {
+        _isAnimationFinished = false;
+    }
+
+    protected void _CheckAnimationFinish()
+    {
+        _isAnimationFinished = true;
+    }
+    
+    protected void _StandStill()
+    {
+        rb.velocity = Vector2.zero;
+    }
+
+    protected void _MoveHorSmooth(int _moveDirection, float speed)
+    {
+        _positionMovingTo = new Vector2(speed * Time.fixedDeltaTime * 10f * _moveDirection, rb.velocity.y);
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, _positionMovingTo, ref _currentVelocity, _smoothSpeedTime);
+    }
+
+    protected void _CheckPositionAndMoveHorSmooth(Vector3 target, float _speed)
+    {
+        if (target.x < transform.position.x)
+        {
+            _MoveHorSmooth( -1, _speed);
+            _LookAtTarget(target);
+        }
+        else if (target.x > transform.position.x)
+        {
+            _MoveHorSmooth( 1, _speed);
+            _LookAtTarget(target);
+        } 
+    }
+
+    protected void _LookAtTarget(Vector3 target)
+    {
+        if (target.x < transform.position.x && facingRight)
+        {
+            Flip();
+        }
+        else if (target.x > transform.position.x && !facingRight)
+        {
+            Flip();
         }
     }
 
