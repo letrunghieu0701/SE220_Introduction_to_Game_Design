@@ -9,14 +9,14 @@ public class LevelManager : MonoBehaviour
     public static LevelManager instance;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineVirtualCameraBase cam;
-    [SerializeField] private List<Transform> respawnPoints;
+    [SerializeField] private Transform respawnPoint;
 
     private void Awake() {
         instance = this;
     }
 
     public void Respawn() {
-        GameObject player = Instantiate(playerPrefab, respawnPoints[0].position, Quaternion.identity);
+        GameObject player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
         cam.Follow = player.transform;
     }
 

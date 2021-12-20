@@ -29,15 +29,17 @@ public class Health : MonoBehaviour
                 ani.SetTrigger("hurt");
                 StartCoroutine(Invunerability());
                 knight.SetIsHurting(true);
+                Debug.Log("hurt");
             } else {
                 if(!knight.GetIsDead()) {
-                    ani.SetBool("Dead", true);
+                    ani.SetTrigger("Die");
                     knight.SetIsDead(true);
                     knight.enabled = false;
-                    currentHealth = playerHealth;
+                    StartCoroutine(enable());
                 }
-                
-                
+                // currentHealth = playerHealth;
+                // Destroy(gameObject);
+                // LevelManager.instance.Respawn();
             }
         }
     }
@@ -52,10 +54,15 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void enable() {
+    private IEnumerator enable() {
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
+        currentHealth = playerHealth;
+        gameObject.SetActive(true);
+        knight.SetIsDead(false);
+        knight.enabled = true;
         Destroy(gameObject);
         LevelManager.instance.Respawn();
-        gameObject.SetActive(false);
     }
 
     private IEnumerator Invunerability() {
