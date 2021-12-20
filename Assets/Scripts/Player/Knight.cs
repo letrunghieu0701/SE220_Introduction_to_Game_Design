@@ -43,7 +43,7 @@ public class Knight : MonoBehaviour
 
     private float horizontalInput;
     private float doubleTapTime;
-    private float undamageTime = 1.5f;
+    private float undamageTime = 1f;
     private float undamageCoolDown;
     private float gravity;
 
@@ -267,6 +267,7 @@ public class Knight : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "CheckPoint") {
             respawnPoint = transform.position;
+            LevelManager.instance.respawnPoint.position = respawnPoint;
         }
     }
 }

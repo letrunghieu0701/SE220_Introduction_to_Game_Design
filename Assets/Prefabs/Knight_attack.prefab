@@ -434,6 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a347fefddd112478a2af5bafcef583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 10
+  playerHealth: 3
+  totalHealthBar: {fileID: 973345566719198771, guid: db815ce03b88f6540b857c653b6f88a4, type: 3}
+  currentHealthBar: {fileID: 766712485006129437, guid: 88c50088a166bc646ada532baf53b172, type: 3}
   iFrameDuration: 2
   numOfFlashes: 3

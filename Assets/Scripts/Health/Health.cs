@@ -7,6 +7,8 @@ public class Health : MonoBehaviour
 {
     [Header("Health")]
     [SerializeField] private float playerHealth;
+    [SerializeField] public Image totalHealthBar;
+    [SerializeField] public Image currentHealthBar;
     [Header("IFrames")]
     [SerializeField] private float iFrameDuration;
     [SerializeField] private int numOfFlashes;
@@ -20,16 +22,17 @@ public class Health : MonoBehaviour
         ani = GetComponent<Animator>();
         knight = GetComponent<Knight>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        currentHealthBar.fillAmount = currentHealth / 10;
     }
 
     public void TakeDamage(float damage) {
         if(knight.GetIsHurting() == false) {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
+            currentHealthBar.fillAmount = currentHealth / 10;
             if(currentHealth > 0) {
                 ani.SetTrigger("hurt");
                 StartCoroutine(Invunerability());
                 knight.SetIsHurting(true);
-                Debug.Log("hurt");
             } else {
                 if(!knight.GetIsDead()) {
                     ani.SetTrigger("Die");
@@ -54,10 +57,15 @@ public class Health : MonoBehaviour
         }
     }
 
+    public float GetCurrentHealth() {
+        return currentHealth;
+    }
+
     private IEnumerator enable() {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
         currentHealth = playerHealth;
+        currentHealthBar.fillAmount = currentHealth / 10;
         gameObject.SetActive(true);
         knight.SetIsDead(false);
         knight.enabled = true;
