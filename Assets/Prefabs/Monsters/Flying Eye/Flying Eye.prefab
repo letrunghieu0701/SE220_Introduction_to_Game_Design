@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 7
   speed: 0
+  _smoothSpeedTime: 0
   immuneTime: 1
   bodyDamage: 1
   detectionRange: {fileID: 8856215361079333050}
@@ -140,7 +141,7 @@ MonoBehaviour:
   flyUpTime1: 3
   flyUpHeight: 3
   flyUpFar: 3
-  restAfterHurt: 1
+  restAfterHurt: 1.5
   frontWall: {fileID: 1962136278490689231}
 --- !u!50 &6835934875247779191
 Rigidbody2D:
