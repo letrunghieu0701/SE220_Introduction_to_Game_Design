@@ -43,7 +43,7 @@ public class Knight : MonoBehaviour
 
     private float horizontalInput;
     private float doubleTapTime;
-    private float undamageTime = 2f;
+    private float undamageTime = 1f;
     private float undamageCoolDown;
     private float gravity;
 
@@ -53,6 +53,7 @@ public class Knight : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         respawnPoint = transform.position;
         gravity = knight_rb.gravityScale;
+        isDead = false;
     }
 
     private void FixedUpdate() {
@@ -90,11 +91,6 @@ public class Knight : MonoBehaviour
         KeyHandle();
         HandleOnAir();
 
-        if(isDead == true) {
-            knight_rb.gravityScale = 0;
-            horizontalInput = 0;
-        }
-
         if(undamageCoolDown > undamageTime) {
             isHurting = false;
         }
@@ -117,23 +113,22 @@ public class Knight : MonoBehaviour
     }
 
     private void KeyHandle() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            Jump();
-        }
-
-        if(Input.GetKeyDown(KeyCode.X)) {
-            Attack();
-        }
-
-        if(Input.GetKeyDown(KeyCode.Z)) {
-            if(horizontalInput != 0) {
-                isDashing = true;
-                StartCoroutine(Dash(horizontalInput));
+        if(isDead == false) {
+            if(Input.GetKeyDown(KeyCode.Space)) {
+                Jump();
             }
-        }
-
-        if(Input.GetKeyDown(KeyCode.R)) {
-            transform.position = respawnPoint;
+            if(Input.GetKeyDown(KeyCode.X)) {
+                Attack();
+            }
+            if(Input.GetKeyDown(KeyCode.Z)) {
+                if(horizontalInput != 0) {
+                    isDashing = true;
+                    StartCoroutine(Dash(horizontalInput));
+                }
+            }
+            if(Input.GetKeyDown(KeyCode.R)) {
+                transform.position = respawnPoint;
+            }
         }
     }
 
@@ -238,13 +233,13 @@ public class Knight : MonoBehaviour
         jumpAttack = false;
     }
 
-    void Dead() {
+    public void Dead() {
         if(knight_ani){
-            knight_ani.SetTrigger("die");
+            knight_ani.SetTrigger("Die");
         }
 
         if(knight_rb){
-            knight_rb.velocity = new Vector2(0f, knight_rb.velocity.y);
+            knight_rb.velocity = new Vector2(0f, 0f);
         }
     }
 
@@ -272,6 +267,7 @@ public class Knight : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "CheckPoint") {
             respawnPoint = transform.position;
+            LevelManager.instance.respawnPoint.position = respawnPoint;
         }
     }
 }
