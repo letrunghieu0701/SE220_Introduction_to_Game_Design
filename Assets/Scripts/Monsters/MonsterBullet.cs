@@ -37,7 +37,7 @@ public class MonsterBullet : MonoBehaviour
         {
             if (!animator.GetBool("isHitted"))
             {
-                collider2D.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
+                collider2D.GetComponent<Health>().TakeDamage(damage);
                 animator.SetBool("isHitted", true);
                 rb.velocity = Vector2.zero;
                 rb.isKinematic = true;

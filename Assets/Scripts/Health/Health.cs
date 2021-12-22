@@ -25,15 +25,14 @@ public class Health : MonoBehaviour
         currentHealthBar.fillAmount = currentHealth / 10;
     }
 
-    public void TakeDamage(float damage, float direction) {
+    public void TakeDamage(float damage) {
         if(knight.GetIsHurting() == false) {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
             currentHealthBar.fillAmount = currentHealth / 10;
-            
             if(currentHealth > 0) {
                 ani.SetTrigger("hurt");
-                knight.DoKnockBack(direction);
                 StartCoroutine(Invunerability());
+                knight.SetIsHurting(true);
             } else {
                 if(!knight.GetIsDead()) {
                     ani.SetTrigger("Die");
@@ -41,6 +40,9 @@ public class Health : MonoBehaviour
                     knight.enabled = false;
                     StartCoroutine(enable());
                 }
+                // currentHealth = playerHealth;
+                // Destroy(gameObject);
+                // LevelManager.instance.Respawn();
             }
         }
     }
@@ -51,7 +53,7 @@ public class Health : MonoBehaviour
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.E)) {
-            TakeDamage(1, 0);
+            TakeDamage(1);
         }
     }
 
@@ -61,10 +63,10 @@ public class Health : MonoBehaviour
 
     private IEnumerator enable() {
         yield return new WaitForSeconds(1f);
-        // gameObject.SetActive(false);
-        // currentHealth = playerHealth;
-        // currentHealthBar.fillAmount = currentHealth / 10;
-        // gameObject.SetActive(true);
+        gameObject.SetActive(false);
+        currentHealth = playerHealth;
+        currentHealthBar.fillAmount = currentHealth / 10;
+        gameObject.SetActive(true);
         knight.SetIsDead(false);
         knight.enabled = true;
         Destroy(gameObject);

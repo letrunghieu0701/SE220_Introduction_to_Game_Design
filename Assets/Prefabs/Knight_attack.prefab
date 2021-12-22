@@ -96,8 +96,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1670489087}
+  - component: {fileID: 1670489089}
   - component: {fileID: 1670489088}
-  - component: {fileID: 233044028}
   m_Layer: 0
   m_Name: SwordHitBox
   m_TagString: Untagged
@@ -113,12 +113,38 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670489086}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.11, y: -0.36, z: 0}
-  m_LocalScale: {x: 1.675, y: 1, z: 1}
+  m_LocalPosition: {x: 1.6299973, y: -0.6500015, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4889847748298051100}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1670489089
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670489086}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.4858513, y: 0.30277634}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0985794, y: 1.2957344}
+  m_EdgeRadius: 0
 --- !u!114 &1670489088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,22 +158,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 3
---- !u!58 &233044028
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670489086}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.6
 --- !u!1 &1982011908
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,11 +396,7 @@ MonoBehaviour:
   wallSlidingSpeed: 3
   xWallJumpForce: 3
   dashDistance: 5
-  knockBackDistance: 0.5
-  knockBackForce: 5
   wallJumpCoolDown: 0.05
-  stopHorizontalTime: 0.5
-  stopAttackTime: 0.3
 --- !u!114 &406073645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,8 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a347fefddd112478a2af5bafcef583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: 5
+  playerHealth: 3
   totalHealthBar: {fileID: 973345566719198771, guid: db815ce03b88f6540b857c653b6f88a4, type: 3}
   currentHealthBar: {fileID: 766712485006129437, guid: 88c50088a166bc646ada532baf53b172, type: 3}
-  iFrameDuration: 1
+  iFrameDuration: 2
   numOfFlashes: 3
