@@ -7,20 +7,22 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] public Vector2 respawnPoint;
     public static LevelManager instance;
-    [SerializeField] private GameObject playerPrefab;
-    [SerializeField] private CinemachineVirtualCameraBase cam;
-    [SerializeField] public Transform respawnPoint;
-    // [SerializeField] private List<Transform> respawnPoints;
-    [SerializeField] private Image currentHealthBar;
 
     private void Awake() {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Respawn() {
-        GameObject player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
-        cam.Follow = player.transform;
-        player.GetComponent<Health>().currentHealthBar = currentHealthBar;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
