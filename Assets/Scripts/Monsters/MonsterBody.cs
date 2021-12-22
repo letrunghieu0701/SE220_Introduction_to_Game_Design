@@ -11,7 +11,7 @@ public class MonsterBody : MonoBehaviour
     {
         if (collider2D.CompareTag("Player"))
         {
-            collider2D.GetComponent<Health>().TakeDamage(bodyDamage);
+            collider2D.GetComponent<Health>().TakeDamage(bodyDamage, transform.parent.localScale.x);
             damaged = true;
         }    
     }

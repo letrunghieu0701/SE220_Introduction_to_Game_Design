@@ -8,7 +8,7 @@ public class EnermyDamage : MonoBehaviour
 
     protected void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "Player") {
-            col.GetComponent<Health>().TakeDamage(damage);
+            col.GetComponent<Health>().TakeDamage(damage, transform.parent.localScale.x);
         }
     }
 }

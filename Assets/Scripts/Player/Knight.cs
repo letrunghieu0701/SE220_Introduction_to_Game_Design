@@ -16,9 +16,13 @@ public class Knight : MonoBehaviour
     [SerializeField] private float wallSlidingSpeed;
     [SerializeField] private float xWallJumpForce;
     [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float knockBackDistance = 0.5f;
+    [SerializeField] private float knockBackForce = 0.5f;
 
     [Header("Timer")]
     [SerializeField] private float wallJumpCoolDown;
+    [SerializeField] private float stopHorizontalTime = 0.5f;
+    [SerializeField] private float stopAttackTime = 0.3f;
 
     Rigidbody2D knight_rb;
     Animator knight_ani;
@@ -34,12 +38,15 @@ public class Knight : MonoBehaviour
     private bool isDead;
     private bool facingRight = true;
     private bool canJump;
+    private bool canMove;
     private bool falling;
     private bool isWallJumpOver;
     private bool isDashing;
     private bool isHurting = false;
-    private bool stopHorizontal;
+    private bool stopHorizontal = false;
+    private bool stopAttack = false;
     private bool jumpAttack;
+    private bool knockBack = false;
 
     private float horizontalInput;
     private float doubleTapTime;
@@ -69,7 +76,7 @@ public class Knight : MonoBehaviour
         if(knight_ani){
             knight_ani.SetBool("isGround", isGround);
             knight_ani.SetFloat("yVelocity", knight_rb.velocity.y);
-            knight_ani.SetBool("walk", horizontalInput != 0);
+            knight_ani.SetBool("walk", canMove);
             knight_ani.SetBool("attack", isAttack);
             knight_ani.SetBool("dash", isDashing);
             knight_ani.SetBool("jumpAttack", jumpAttack);
@@ -85,7 +92,7 @@ public class Knight : MonoBehaviour
             isWallJumpOver = true;
         }
 
-        if(isWallJumpOver == true && isDashing == false) {
+        if(isWallJumpOver == true && isDashing == false && isHurting == false) {
             MoveHandle();
         }
     }
@@ -97,8 +104,10 @@ public class Knight : MonoBehaviour
         KeyHandle();
         HandleOnAir();
 
-        if(undamageCoolDown > undamageTime) {
-            isHurting = false;
+        if(horizontalInput != 0) {
+            canMove = true;
+        } else {
+            canMove = false;
         }
 
         if(wallSliding == true) {
@@ -119,12 +128,15 @@ public class Knight : MonoBehaviour
     }
 
     private void KeyHandle() {
-        if(isDead == false) {
+        if(isDead == false && isHurting == false) {
             if(Input.GetKeyDown(KeyCode.Space)) {
                 Jump();
             }
             if(Input.GetKeyDown(KeyCode.X)) {
-                Attack();
+                if(stopAttack == false) {
+                    Attack();
+                    StartCoroutine(StopAttack());
+                }
             }
             if(Input.GetKeyDown(KeyCode.Z)) {
                 if(horizontalInput != 0) {
@@ -160,11 +172,6 @@ public class Knight : MonoBehaviour
                 knight_rb.velocity = new Vector2(0f, knight_rb.velocity.y);
             }
         }
-    }
-
-    public void SetIsHurting(bool var) {
-        undamageCoolDown = 0;
-        isHurting = var;
     }
 
     public void SetIsDead(bool var) {
@@ -210,10 +217,6 @@ public class Knight : MonoBehaviour
         }
     }
 
-    void setWallJumpToFalse() {
-        wallJumping = false;
-    }
-
     void Attack() {
         
         if(isWall == false && isGround == true && !this.knight_ani.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
@@ -229,6 +232,10 @@ public class Knight : MonoBehaviour
 
     public bool GetIsWall() {
         return isWall;
+    }
+
+    void setWallJumpToFalse() {
+        wallJumping = false;
     }
 
     void setAttackToFalse() {
@@ -253,6 +260,14 @@ public class Knight : MonoBehaviour
         return isGround || isWall || (!isGround && !isWall);
     }
 
+    public void DoKnockBack(float direction) {
+        if(direction == transform.localScale.x) {
+            Flip();
+        }
+        StartCoroutine(HurtingTime(knockBackDistance));
+        knight_rb.velocity = new Vector2(-transform.localScale.x * knockBackForce, knockBackForce);
+    }
+
     private IEnumerator Dash(float dir) {
         if(isDashing == true) {
             knight_rb.gravityScale = 0;
@@ -266,8 +281,20 @@ public class Knight : MonoBehaviour
 
     private IEnumerator StopHorizontal() {
         stopHorizontal = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(stopHorizontalTime);
         stopHorizontal = false;
+    }
+
+    private IEnumerator StopAttack() {
+        stopAttack = true;
+        yield return new WaitForSeconds(stopAttackTime);
+        stopAttack = false;
+    }
+
+    private IEnumerator HurtingTime(float time) {
+        isHurting = true;
+        yield return new WaitForSeconds(time);
+        isHurting = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
