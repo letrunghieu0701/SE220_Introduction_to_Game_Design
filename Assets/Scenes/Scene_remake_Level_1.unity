@@ -1757,6 +1757,14 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 406073646, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: totalHealthBar
+      value: 
+      objectReference: {fileID: 1763056616}
+    - target: {fileID: 406073646, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+      propertyPath: currentHealthBar
+      value: 
+      objectReference: {fileID: 2008669128}
     - target: {fileID: 1174596563, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_Size.y
       value: 1.380451
@@ -2561,7 +2569,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 4889847748298051075, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
   cam: {fileID: 0}
-  respawnPoints: []
+  respawnPoint: {fileID: 0}
+  currentHealthBar: {fileID: 2008669128}
 --- !u!4 &851896379
 Transform:
   m_ObjectHideFlags: 0

@@ -11,14 +11,24 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private CinemachineVirtualCameraBase cam;
     [SerializeField] public Transform respawnPoint;
-    // [SerializeField] private List<Transform> respawnPoints;
     [SerializeField] private Image currentHealthBar;
+    static bool initialized { get; set; }
 
     private void Awake() {
         instance = this;
+        // if(initialized) {
+        //     Destroy(this.gameObject);
+        // }
+        // else {
+        //     instance = this;
+        //     GameObject.DontDestroyOnLoad(this.gameObject);
+        //     initialized = true;
+        // }
+        
     }
 
     public void Respawn() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         GameObject player = Instantiate(playerPrefab, respawnPoint.position, Quaternion.identity);
         cam.Follow = player.transform;
         player.GetComponent<Health>().currentHealthBar = currentHealthBar;
