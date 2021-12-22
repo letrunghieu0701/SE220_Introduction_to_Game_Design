@@ -53,6 +53,7 @@ public class Knight : MonoBehaviour
     private float undamageTime = 1f;
     private float undamageCoolDown;
     private float gravity;
+    private LevelManager levelManager;
 
     private void Awake() {
         knight_rb = transform.GetComponent<Rigidbody2D>();
@@ -61,6 +62,11 @@ public class Knight : MonoBehaviour
         respawnPoint = transform.position;
         gravity = knight_rb.gravityScale;
         isDead = false;
+    }
+
+    private void Start() {
+        levelManager = GameObject.FindGameObjectWithTag("LevelManager").GetComponent<LevelManager>();
+        transform.position = levelManager.respawnPoint;
     }
 
     private void FixedUpdate() {
@@ -293,8 +299,7 @@ public class Knight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "CheckPoint") {
-            respawnPoint = transform.position;
-            LevelManager.instance.respawnPoint.position = respawnPoint;
+            levelManager.respawnPoint = transform.position;
         }
     }
 }
