@@ -2754,7 +2754,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 500.1132, y: 27.585674, z: 1.2040329}
+  m_LocalPosition: {x: 86.67319, y: 27.205675, z: 1.2040329}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 270391142}
@@ -5057,10 +5057,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f30fb9e9d3c71647872fc13bf1d63ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 4889847748298051075, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-  cam: {fileID: 1348634390}
   respawnPoint: {x: 81.5, y: 24.44}
-  currentHealthBar: {fileID: 2008669128}
 --- !u!4 &851896379
 Transform:
   m_ObjectHideFlags: 0
@@ -28860,7 +28857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2440678901445247369, guid: f0046bbcab207774f98ac13973f04794, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2440678901445247369, guid: f0046bbcab207774f98ac13973f04794, type: 3}
       propertyPath: m_LocalPosition.x
@@ -29017,6 +29014,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7560989497236783426, guid: f93de0e637e0ebc4a81917bfc72ea216, type: 3}
   m_PrefabInstance: {fileID: 1555649107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1311459614 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4889847748298051100, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
+  m_PrefabInstance: {fileID: 626482872}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1319434360
 PrefabInstance:
@@ -29265,7 +29267,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 271663095}
+  m_Follow: {fileID: 1311459614}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -29289,7 +29291,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348634389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 500.1132, y: 27.585674, z: 1.2040329}
+  m_LocalPosition: {x: 86.67319, y: 27.205675, z: 1.2040329}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1557001927}
