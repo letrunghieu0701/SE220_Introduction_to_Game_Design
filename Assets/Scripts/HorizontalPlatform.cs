@@ -27,4 +27,12 @@ public class HorizontalPlatform : MonoBehaviour
             } else movingLeft = true;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D col) {
+        col.transform.SetParent(transform);
+    }
+
+    private void OnCollisionExit2D(Collision2D col) {
+        col.transform.SetParent(null);
+    }
 }
