@@ -16,7 +16,7 @@ public class Knight : MonoBehaviour
     [SerializeField] private float wallSlidingSpeed;
     [SerializeField] private float xWallJumpForce;
     [SerializeField] private float dashDistance = 5f;
-    [SerializeField] private float knockBackDistance = 0.5f;
+    [SerializeField] private float knockBackDistance = 1.5f;
     [SerializeField] private float knockBackForce = 0.5f;
 
     [Header("Timer")]

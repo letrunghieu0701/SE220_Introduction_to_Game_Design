@@ -12,6 +12,7 @@ TagManager:
   - Monster
   - CheckPoint
   - LevelManager
+  - DeadZone
   layers:
   - Default
   - TransparentFX
