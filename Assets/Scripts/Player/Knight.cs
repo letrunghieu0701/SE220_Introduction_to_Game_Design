@@ -8,6 +8,7 @@ public class Knight : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform backCheck;
     [SerializeField] private float checkRadius;
 
     [Header("Physic variable")]
@@ -32,6 +33,7 @@ public class Knight : MonoBehaviour
 
     private bool isGround;
     private bool isWall;
+    private bool backTouching;
     private bool isAttack;
     private bool wallSliding;
     private bool wallJumping;
@@ -72,6 +74,7 @@ public class Knight : MonoBehaviour
     private void FixedUpdate() {
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         isWall = Physics2D.OverlapCircle(wallCheck.position, checkRadius, whatIsGround);
+        backTouching = Physics2D.OverlapCircle(backCheck.position, checkRadius, whatIsGround);
 
         if(knight_ani){
             knight_ani.SetBool("isGround", isGround);
@@ -187,10 +190,12 @@ public class Knight : MonoBehaviour
     }
 
     private void Flip() {
-        facingRight = !facingRight;
-        Vector3 scaler = transform.localScale;
-        scaler.x *= -1;
-        transform.localScale = scaler;
+        if(backTouching == false) {
+            facingRight = !facingRight;
+            Vector3 scaler = transform.localScale;
+            scaler.x *= -1;
+            transform.localScale = scaler;
+        }
     }
 
     private void Jump() {

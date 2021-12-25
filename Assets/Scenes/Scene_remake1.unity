@@ -3075,22 +3075,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -7199635396185890261, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: xWallJumpForce
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -7199635396185890261, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: wallJumpCoolDown
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: -7199635396185890261, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: stopHorizontalTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 406073645, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: cutCoolDown
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 406073645, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: fireballs.Array.data[0]
       value: 
@@ -3132,10 +3116,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1940776201}
     - target: {fileID: 406073646, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: playerHealth
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 406073646, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: totalHealthBar
       value: 
       objectReference: {fileID: 659481182}
@@ -3143,22 +3123,6 @@ PrefabInstance:
       propertyPath: currentHealthBar
       value: 
       objectReference: {fileID: 1959021963}
-    - target: {fileID: 1174596563, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: m_Size.y
-      value: 1.380451
-      objectReference: {fileID: 0}
-    - target: {fileID: 1174596563, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.070457816
-      objectReference: {fileID: 0}
-    - target: {fileID: 1982011910, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: m_Size.x
-      value: 0.49255753
-      objectReference: {fileID: 0}
-    - target: {fileID: 1982011910, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.016996384
-      objectReference: {fileID: 0}
     - target: {fileID: 4889847748298051075, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_Name
       value: Knight_attack
