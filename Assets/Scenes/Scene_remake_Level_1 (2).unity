@@ -2893,7 +2893,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.873188, y: 127.26567, z: 1.2040329}
+  m_LocalPosition: {x: -181.82681, y: 14.065675, z: 1.2040329}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 270391142}
@@ -3569,11 +3569,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889847748298051100, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.7
+      value: -187
       objectReference: {fileID: 0}
     - target: {fileID: 4889847748298051100, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 124.5
+      value: 11.3
       objectReference: {fileID: 0}
     - target: {fileID: 4889847748298051100, guid: 734a982e22915e2488ed11038f8f8009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5167,7 +5167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f30fb9e9d3c71647872fc13bf1d63ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnPoint: {x: 0, y: 0}
+  respawnPoint: {x: -187, y: 11.3}
 --- !u!4 &851896379
 Transform:
   m_ObjectHideFlags: 0
@@ -60991,7 +60991,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1348634389}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 35.873188, y: 127.26567, z: 1.2040329}
+  m_LocalPosition: {x: -181.82681, y: 14.065675, z: 1.2040329}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1557001927}
