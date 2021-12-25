@@ -8,6 +8,7 @@ public class Knight : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
+    [SerializeField] private Transform backCheck;
     [SerializeField] private float checkRadius;
 
     [Header("Physic variable")]
@@ -15,12 +16,13 @@ public class Knight : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float wallSlidingSpeed;
     [SerializeField] private float xWallJumpForce;
-    [SerializeField] private float dashDistance = 5f;
+    [SerializeField] private float dashDistance = 8f;
     [SerializeField] private float knockBackDistance = 1.5f;
     [SerializeField] private float knockBackForce = 0.5f;
 
     [Header("Timer")]
     [SerializeField] private float wallJumpCoolDown;
+    [SerializeField] private float dashingTime = 0.4f;
     [SerializeField] private float stopHorizontalTime = 0.5f;
     [SerializeField] private float stopAttackTime = 0.3f;
 
@@ -32,6 +34,7 @@ public class Knight : MonoBehaviour
 
     private bool isGround;
     private bool isWall;
+    private bool backTouching;
     private bool isAttack;
     private bool wallSliding;
     private bool wallJumping;
@@ -72,6 +75,7 @@ public class Knight : MonoBehaviour
     private void FixedUpdate() {
         isGround = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
         isWall = Physics2D.OverlapCircle(wallCheck.position, checkRadius, whatIsGround);
+        backTouching = Physics2D.OverlapCircle(backCheck.position, checkRadius, whatIsGround);
 
         if(knight_ani){
             knight_ani.SetBool("isGround", isGround);
@@ -139,9 +143,12 @@ public class Knight : MonoBehaviour
                 }
             }
             if(Input.GetKeyDown(KeyCode.Z)) {
-                if(horizontalInput != 0) {
+                if(facingRight == true) {
                     isDashing = true;
-                    StartCoroutine(Dash(horizontalInput));
+                    StartCoroutine(Dash(1));
+                } else {
+                    isDashing = true;
+                    StartCoroutine(Dash(-1));
                 }
             }
             if(Input.GetKeyDown(KeyCode.R)) {
@@ -187,10 +194,12 @@ public class Knight : MonoBehaviour
     }
 
     private void Flip() {
-        facingRight = !facingRight;
-        Vector3 scaler = transform.localScale;
-        scaler.x *= -1;
-        transform.localScale = scaler;
+        if(backTouching == false) {
+            facingRight = !facingRight;
+            Vector3 scaler = transform.localScale;
+            scaler.x *= -1;
+            transform.localScale = scaler;
+        }
     }
 
     private void Jump() {
@@ -274,7 +283,7 @@ public class Knight : MonoBehaviour
             knight_rb.velocity = new Vector2(knight_rb.velocity.x, 0f);
             knight_rb.AddForce(new Vector2(dashDistance * dir, 0f), ForceMode2D.Impulse);
         }
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(dashingTime);
         knight_rb.gravityScale = gravity;
         isDashing = false;
     }
