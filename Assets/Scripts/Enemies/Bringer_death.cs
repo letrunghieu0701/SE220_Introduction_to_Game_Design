@@ -4,56 +4,63 @@ using UnityEngine;
 
 public class Bringer_death : MonoBehaviour
 {
-    private enum State{
-        Idle,
-        Attack,
-        Hurt,
-        Walk,
-        Skill,
-        Dead,
-    }
+    [Header("Info")]
+    [SerializeField] private int startHealth;
+    [SerializeField] private int damage;
+    [SerializeField] private float range;
+    [SerializeField] private Transform playerCheck;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float checkRadius = 0.5f;
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private float movementDistance = 3f;
+    [Header("Timer")]
+    [SerializeField] private float attackCoolDown = 2f;
+    [SerializeField] private float destroyObjAfterDieDelay = 3f;
 
-    private State currentState;
-    private bool groundDetected, wallDetected;
-    [SerializeField] private Transform groundCheck, wallCheck;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private float groundCheckDistance, wallCheckDistance;
-    [SerializeField] private float damage;
-    [SerializeField] private float movementDistance;
-    [SerializeField] private float speed;
     private Animator ani;
-    private bool movingLeft;
+
+    private float coolDownTimer;
     private float leftEdge;
     private float rightEdge;
 
+    private int currentHealth;
+
+    private bool isPlayer;
+    private bool movingLeft;
+    private bool isDead;
+    private bool canAttack;
+
     private void Awake() {
-        ani = GetComponent<Animator>();
+        currentHealth = startHealth;
         leftEdge = transform.position.x - movementDistance;
         rightEdge = transform.position.x + movementDistance;
+        ani = GetComponent<Animator>();
     }
 
     private void FixedUpdate() {
-        if(ani) {
-            ani.SetBool("walk", true);
+        ani.SetBool("walk", !canAttack);
+    }
+
+    private void Update() {
+        isPlayer = Physics2D.OverlapCircle(playerCheck.position, checkRadius, playerLayer);
+        coolDownTimer += Time.deltaTime;
+
+        if(canAttack == false) {
+            Movement();
+        }
+
+        if(isPlayer == true) {
+            if(coolDownTimer >= attackCoolDown) {
+                canAttack = true;
+                coolDownTimer = 0;
+                ani.SetTrigger("attack");
+            }
+        } else {
+            canAttack = false;
         }
     }
 
-    private void Update(){
-        switch(currentState){
-            case State.Idle: UpdateIdleState();
-                break;
-            case State.Attack: UpdateAttackState();
-                break;
-            case State.Hurt: UpdateHurtState();
-                break;
-            case State.Walk: UpdateWalkState();
-                break;
-            case State.Skill: UpdateSkillState();
-                break;
-            case State.Dead: UpdateDeadState();
-                break;
-        }
-
+    private void Movement() {
         if(movingLeft) {
             if(transform.position.x > leftEdge) {
                 transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
@@ -72,129 +79,37 @@ public class Bringer_death : MonoBehaviour
         transform.localScale = scaler;
     }
 
-    private void OnTriggerEnter2D(Collider2D col) {
+    public void TakeDamage(int damage) {
+        if(currentHealth > 0) {
+            ani.SetTrigger("hurt");
+            currentHealth -= damage;
+            if(currentHealth <= 0) {
+                isDead = true;
+                ani.SetTrigger("die");
+                StartCoroutine(enable());
+            }
+        }
+    }
+
+    private void DeleteGameObjDelay()
+    {
+        Invoke("DeleteGameObj", destroyObjAfterDieDelay);
+    }
+
+    private void DeleteGameObj()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "Player") {
             col.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
         }
     }
 
-    //====================Idle state========================
-
-    private void EnterIdleState(){
-
-    }
-
-    private void UpdateIdleState(){
-
-    }
-
-    private void ExitIdleState(){
-
-    }
-
-    //====================Attack state========================
-
-    private void EnterAttackState(){
-
-    }
-
-    private void UpdateAttackState(){
-
-    }
-
-    private void ExitAttackState(){
-
-    }
-
-    //====================Hurt state========================
-
-    private void EnterHurtState(){
-
-    }
-
-    private void UpdateHurtState(){
-
-    }
-
-    private void ExitHurtState(){
-
-    }
-
-    //====================Walking state========================
-
-    private void EnterWalkState(){
-
-    }
-
-    private void UpdateWalkState(){
-        groundDetected = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);
-    }
-
-    private void ExitWalkState(){
-
-    }
-
-    //====================Skill state========================
-
-    private void EnterSkillState(){
-
-    }
-
-    private void UpdateSkillState(){
-
-    }
-
-    private void ExitSkillState(){
-
-    }
-
-    //====================Dead state========================
-
-    private void EnterDeadState(){
-
-    }
-
-    private void UpdateDeadState(){
-
-    }
-
-    private void ExitDeadState(){
-
-    }
-
-    //====================Other functions========================
-
-    private void SwitchState(State state){
-        switch(currentState){
-            case State.Idle: ExitIdleState();
-                break;
-            case State.Attack: ExitAttackState();
-                break;
-            case State.Hurt: ExitHurtState();
-                break;
-            case State.Walk: ExitWalkState();
-                break;
-            case State.Skill: ExitSkillState();
-                break;
-            case State.Dead: ExitDeadState();
-                break;
-        }
-
-        switch(state){
-            case State.Idle: EnterIdleState();
-                break;
-            case State.Attack: EnterAttackState();
-                break;
-            case State.Hurt: EnterHurtState();
-                break;
-            case State.Walk: EnterWalkState();
-                break;
-            case State.Skill: EnterSkillState();
-                break;
-            case State.Dead: EnterDeadState();
-                break;
-        }
-
-        currentState = state;
+    private IEnumerator enable() {
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }
