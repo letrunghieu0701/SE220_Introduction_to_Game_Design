@@ -32,6 +32,8 @@ public class Health : MonoBehaviour
             
             if(currentHealth > 0) {
                 ani.SetTrigger("hurt");
+                knight.setAttackToFalse();
+                knight.setJumpAttackToFalse();
                 knight.DoKnockBack(direction);
                 StartCoroutine(Invunerability());
             } else {
@@ -47,6 +49,7 @@ public class Health : MonoBehaviour
 
     public void Heal(float health) {
         currentHealth = Mathf.Clamp(currentHealth + health, 0, playerHealth);
+        currentHealthBar.fillAmount = currentHealth / 10;
     }
 
     private void Update() {
@@ -61,10 +64,6 @@ public class Health : MonoBehaviour
 
     private IEnumerator enable() {
         yield return new WaitForSeconds(1f);
-        // gameObject.SetActive(false);
-        // currentHealth = playerHealth;
-        // currentHealthBar.fillAmount = currentHealth / 10;
-        // gameObject.SetActive(true);
         knight.SetIsDead(false);
         knight.enabled = true;
         Destroy(gameObject);

@@ -247,11 +247,11 @@ public class Knight : MonoBehaviour
         wallJumping = false;
     }
 
-    void setAttackToFalse() {
+    public void setAttackToFalse() {
         isAttack = false;
     }
 
-    void setJumpAttackToFalse() {
+    public void setJumpAttackToFalse() {
         jumpAttack = false;
     }
 

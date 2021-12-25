@@ -144,16 +144,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b921e44103806284189c39d4492b1e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheck: {fileID: 2077371593011541841}
-  wallCheck: {fileID: 2077371594202147012}
-  whatIsGround:
+  startHealth: 15
+  damage: 2
+  range: 2
+  playerCheck: {fileID: 2077371594202147012}
+  playerLayer:
     serializedVersion: 2
-    m_Bits: 256
-  groundCheckDistance: 0.3
-  wallCheckDistance: 0.3
-  damage: 1
-  movementDistance: 3
+    m_Bits: 1024
+  checkRadius: 0.5
   speed: 3
+  movementDistance: 3
+  attackCoolDown: 2
+  destroyObjAfterDieDelay: 3
 --- !u!1 &2077371593011541840
 GameObject:
   m_ObjectHideFlags: 0
@@ -163,13 +165,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2077371593011541841}
+  - component: {fileID: 189417105}
+  - component: {fileID: 189417104}
   m_Layer: 0
-  m_Name: groundCheck
+  m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2077371593011541841
 Transform:
   m_ObjectHideFlags: 0
@@ -184,6 +188,45 @@ Transform:
   m_Father: {fileID: 2077371592853118182}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &189417105
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077371593011541840}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.0649185, y: 0.61747885}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.6622391, y: 1.2250376}
+  m_EdgeRadius: 0
+--- !u!114 &189417104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2077371593011541840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c60dd93dbe31b648900a853253d83f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &2077371594202147019
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,7 +238,7 @@ GameObject:
   - component: {fileID: 2077371594202147012}
   - component: {fileID: 2077371594202147013}
   m_Layer: 0
-  m_Name: wallCheck
+  m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,7 +271,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.056792974, y: -0.031804085}
+  m_Offset: {x: -0.5458281, y: 0.22951078}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -239,5 +282,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24124384, y: 0.9818268}
+  m_Size: {x: 1.2193141, y: 1.5044565}
   m_EdgeRadius: 0

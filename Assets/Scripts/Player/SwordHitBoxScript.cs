@@ -9,5 +9,8 @@ public class SwordHitBoxScript : MonoBehaviour
         if(col.tag == "Monster") {
             col.GetComponent<Monster>().TakeDamage(damage);
         }
+        if(col.tag == "BringerOfDeath") {
+            col.GetComponent<Bringer_death>().TakeDamage(damage);
+        }
     }
 }
