@@ -6,7 +6,7 @@ public class Monster : MonoBehaviour
 {
     [Header("Self :")]
     [SerializeField] protected int health;
-    [SerializeField] protected float speed;
+    [SerializeField] public float speed;
     [SerializeField][Range(0f, 10f)] protected float _smoothSpeedTime = 0f;
     [SerializeField] protected float immuneTime = 1f;
     [SerializeField] protected int bodyDamage = 1;
@@ -24,7 +24,7 @@ public class Monster : MonoBehaviour
     protected bool isAllowToMove = true;
     protected bool isAllowToUpdate = true;
     protected bool playerDetected = false;
-    protected bool isDead = false;
+    [HideInInspector] public bool isDead = false;
     protected bool isHurt = false;
     protected bool _isAnimationFinished = false;
     protected State flashingState;
