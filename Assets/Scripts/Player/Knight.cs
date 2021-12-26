@@ -19,12 +19,18 @@ public class Knight : MonoBehaviour
     [SerializeField] private float dashDistance = 8f;
     [SerializeField] private float knockBackDistance = 1.5f;
     [SerializeField] private float knockBackForce = 0.5f;
+    [SerializeField] private ParticleSystem dust;
 
     [Header("Timer")]
     [SerializeField] private float wallJumpCoolDown;
     [SerializeField] private float dashingTime = 0.4f;
     [SerializeField] private float stopHorizontalTime = 0.5f;
     [SerializeField] private float stopAttackTime = 0.3f;
+    [Header("Sound")]
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource cutSound;
+    [SerializeField] private AudioSource dashSound;
+    [SerializeField] private AudioSource moveSound;
 
     Rigidbody2D knight_rb;
     Animator knight_ani;
@@ -56,6 +62,7 @@ public class Knight : MonoBehaviour
     private float undamageTime = 1f;
     private float undamageCoolDown;
     private float gravity;
+    private int increaceBackCheck = 1;
     private LevelManager levelManager;
 
     private void Awake() {
@@ -199,6 +206,7 @@ public class Knight : MonoBehaviour
 
     private void Flip() {
         if(backTouching == false) {
+            CreateDust();
             facingRight = !facingRight;
             Vector3 scaler = transform.localScale;
             scaler.x *= -1;
@@ -208,10 +216,13 @@ public class Knight : MonoBehaviour
 
     private void Jump() {
         if (isGround == true && isDashing == false) {
+            jumpSound.Play();
+            CreateDust();
             knight_rb.velocity = Vector2.up * jumpForce;
             canJump = true;
         } else if(wallSliding == true) {
             wallJumping = true;
+            jumpSound.Play();
             Invoke("setWallJumpToFalse", wallJumpCoolDown);
         }
     }
@@ -233,10 +244,12 @@ public class Knight : MonoBehaviour
     void Attack() {
         
         if(isWall == false && isGround == true && !this.knight_ani.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
+            cutSound.Play();
             isAttack = true;
         }
 
         if(isGround == false && !this.knight_ani.GetCurrentAnimatorStateInfo(1).IsName("jumpattack")) {
+            cutSound.Play();
             jumpAttack = true;
         } else {
             jumpAttack = false;
@@ -273,8 +286,10 @@ public class Knight : MonoBehaviour
         return isGround || isWall || (!isGround && !isWall);
     }
 
-    public void DoKnockBack(float direction) {
-        if(direction == transform.localScale.x) {
+    public void DoKnockBack(Vector3 objectPos) {
+        if(objectPos.x >= transform.position.x && transform.localScale.x < 0) {
+            Flip();
+        } else if(objectPos.x <= transform.position.x && transform.localScale.x > 0) {
             Flip();
         }
         StartCoroutine(HurtingTime(knockBackDistance));
@@ -283,12 +298,12 @@ public class Knight : MonoBehaviour
 
     private IEnumerator Dash(float dir) {
         if(isDashing == true) {
-            knight_rb.gravityScale = 0;
-            knight_rb.velocity = new Vector2(knight_rb.velocity.x, 0f);
-            knight_rb.AddForce(new Vector2(dashDistance * dir, 0f), ForceMode2D.Impulse);
+            dashSound.Play();
+            CreateDust();
+            knight_rb.velocity = new Vector2(knight_rb.velocity.x, knight_rb.velocity.y);
+            knight_rb.AddForce(new Vector2(dashDistance * dir, knight_rb.velocity.y), ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(dashingTime);
-        knight_rb.gravityScale = gravity;
         isDashing = false;
     }
 
@@ -314,5 +329,9 @@ public class Knight : MonoBehaviour
         if(col.tag == "CheckPoint") {
             levelManager.respawnPoint = transform.position;
         }
+    }
+
+    private void CreateDust() {
+        dust.Play();
     }
 }

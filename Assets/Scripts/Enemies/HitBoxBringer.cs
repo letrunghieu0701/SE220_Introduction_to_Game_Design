@@ -7,7 +7,7 @@ public class HitBoxBringer : MonoBehaviour
     [SerializeField] private int damage;
     public void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "Player") {
-            col.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
+            col.GetComponent<Health>().TakeDamage(damage, transform.position);
         }
     }
 }

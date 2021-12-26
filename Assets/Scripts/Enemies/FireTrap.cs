@@ -47,7 +47,7 @@ public class FireTrap : MonoBehaviour
             //     StartCoroutine(ActivateFireTrap());
             // }
             if(active) {
-                col.GetComponent<Health>().TakeDamage(damage, 0);
+                col.GetComponent<Health>().TakeDamage(damage, transform.position);
             }
         }
     }

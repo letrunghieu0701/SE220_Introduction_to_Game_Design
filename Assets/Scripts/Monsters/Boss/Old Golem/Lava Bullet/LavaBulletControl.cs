@@ -21,7 +21,7 @@ public class LavaBulletControl : MonsterBullet
         {
             if (!animator.GetBool("isHitted"))
             {
-                collision2D.gameObject.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
+                collision2D.gameObject.GetComponent<Health>().TakeDamage(damage, transform.position);
                 animator.SetBool("isHitted", true);
                 rb.velocity = Vector2.zero;
                 rb.isKinematic = true;
@@ -43,7 +43,7 @@ public class LavaBulletControl : MonsterBullet
         {
             if (!animator.GetBool("isHitted"))
             {
-                collider2D.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
+                collider2D.GetComponent<Health>().TakeDamage(damage, transform.position);
                 animator.SetBool("isHitted", true);
                 rb.velocity = Vector2.zero;
                 rb.isKinematic = true;

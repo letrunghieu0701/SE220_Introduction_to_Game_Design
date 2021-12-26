@@ -12,6 +12,9 @@ public class Health : MonoBehaviour
     [Header("IFrames")]
     [SerializeField] private float iFrameDuration;
     [SerializeField] private int numOfFlashes;
+    [Header("Sound")]
+    [SerializeField] private AudioSource hurtSound;
+    [SerializeField] private AudioSource dieSound;
     private SpriteRenderer spriteRenderer;
     private Animator ani;
     private Knight knight;
@@ -25,19 +28,21 @@ public class Health : MonoBehaviour
         currentHealthBar.fillAmount = currentHealth / 10;
     }
 
-    public void TakeDamage(float damage, float direction) {
+    public void TakeDamage(float damage, Vector3 objectPos) {
         if(knight.GetIsHurting() == false) {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
             currentHealthBar.fillAmount = currentHealth / 10;
             
             if(currentHealth > 0) {
+                hurtSound.Play();
                 ani.SetTrigger("hurt");
                 knight.setAttackToFalse();
                 knight.setJumpAttackToFalse();
-                knight.DoKnockBack(direction);
+                knight.DoKnockBack(objectPos);
                 StartCoroutine(Invunerability());
             } else {
                 if(!knight.GetIsDead()) {
+                    dieSound.Play();
                     ani.SetTrigger("Die");
                     knight.SetIsDead(true);
                     knight.enabled = false;
@@ -54,7 +59,7 @@ public class Health : MonoBehaviour
 
     private void Update() {
         if(Input.GetKeyDown(KeyCode.E)) {
-            TakeDamage(1, 0);
+            TakeDamage(1, transform.position);
         }
     }
 
