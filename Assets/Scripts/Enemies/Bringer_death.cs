@@ -103,7 +103,7 @@ public class Bringer_death : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "Player") {
-            col.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
+            col.GetComponent<Health>().TakeDamage(damage, transform.position);
         }
     }
 

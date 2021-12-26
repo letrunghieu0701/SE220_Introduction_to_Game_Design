@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class playerAttack : MonoBehaviour
 {
-    [SerializeField] private float cutCoolDown;
+    [Header("Attributed")]
+    [SerializeField] private float fireCoolDown;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject[] fireballs;
+    [Header("Sound")]
+    [SerializeField] private AudioSource shootSound;
     private Animator ani;
     private Knight knight;
     private float coolDownTimer = Mathf.Infinity;
@@ -17,7 +20,7 @@ public class playerAttack : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.C) && coolDownTimer > cutCoolDown && knight.canShoot()) {
+        if(Input.GetKeyDown(KeyCode.C) && coolDownTimer > fireCoolDown && knight.canShoot()) {
             Shoot();
         }
 
@@ -25,6 +28,7 @@ public class playerAttack : MonoBehaviour
     }
 
     private void Shoot() {
+        shootSound.Play();
         ani.SetTrigger("cast");
         coolDownTimer = 0;
 
