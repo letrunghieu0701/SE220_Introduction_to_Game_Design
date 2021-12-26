@@ -108,6 +108,10 @@ public class Knight : MonoBehaviour
         KeyHandle();
         HandleOnAir();
 
+        if(isGround && jumpAttack) {
+            jumpAttack = false;
+        }
+
         if(horizontalInput != 0) {
             canMove = true;
         } else {
@@ -133,7 +137,7 @@ public class Knight : MonoBehaviour
 
     private void KeyHandle() {
         if(isDead == false && isHurting == false) {
-            if(Input.GetKeyDown(KeyCode.Space)) {
+            if(Input.GetKeyDown(KeyCode.Space) && backTouching == false) {
                 Jump();
             }
             if(Input.GetKeyDown(KeyCode.X)) {

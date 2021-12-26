@@ -68,6 +68,7 @@ public class Health : MonoBehaviour
         knight.enabled = true;
         Destroy(gameObject);
         LevelManager.instance.Respawn();
+        Life.lifesCount -= 1;
     }
 
     private IEnumerator Invunerability() {
