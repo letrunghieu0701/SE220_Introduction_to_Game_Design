@@ -7,7 +7,7 @@ public class Monster : MonoBehaviour
     [Header("Self :")]
     [SerializeField] protected int health;
     [SerializeField] protected float speed;
-    [SerializeField][Range(0f, 10f)] private float _smoothSpeedTime = 0f;
+    [SerializeField][Range(0f, 10f)] protected float _smoothSpeedTime = 0f;
     [SerializeField] protected float immuneTime = 1f;
     [SerializeField] protected int bodyDamage = 1;
     [SerializeField] protected GameObject detectionRange;
@@ -129,13 +129,13 @@ public class Monster : MonoBehaviour
         rb.velocity = Vector2.zero;
     }
 
-    protected void _MoveHorSmooth(int _moveDirection, float speed)
+    protected virtual void _MoveHorSmooth(int _moveDirection, float speed)
     {
         _positionMovingTo = new Vector2(speed * Time.fixedDeltaTime * 10f * _moveDirection, rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, _positionMovingTo, ref _currentVelocity, _smoothSpeedTime);
     }
 
-    protected void _CheckPositionAndMoveHorSmooth(Vector3 target, float _speed)
+    protected virtual void _CheckPositionAndMoveHorSmooth(Vector3 target, float _speed)
     {
         if (target.x < transform.position.x)
         {
@@ -149,7 +149,7 @@ public class Monster : MonoBehaviour
         } 
     }
 
-    protected void _LookAtTarget(Vector3 target)
+    protected virtual void _LookAtTarget(Vector3 target)
     {
         if (target.x < transform.position.x && facingRight)
         {
@@ -186,7 +186,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    protected void Flip ()
+    protected virtual void Flip ()
     {
         facingRight = !facingRight;
 

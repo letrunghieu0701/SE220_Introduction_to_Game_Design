@@ -51,6 +51,11 @@ public class MonsterBullet : MonoBehaviour
         }
     }
 
+    protected virtual void DeleteGameObjDelay(float destroyObjAfterDieDelay)
+    {
+        Invoke("Destroy", destroyObjAfterDieDelay);
+    }
+
     protected virtual void Destroy()
     {
         Destroy(this.gameObject);
