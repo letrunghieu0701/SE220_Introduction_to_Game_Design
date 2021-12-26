@@ -36,26 +36,4 @@ public class LavaBulletControl : MonsterBullet
             circleCollider2D.enabled = false;
         }
     }
-
-    protected override void OnTriggerEnter2D(Collider2D collider2D)
-    {
-        if (collider2D.CompareTag("Player"))
-        {
-            if (!animator.GetBool("isHitted"))
-            {
-                collider2D.GetComponent<Health>().TakeDamage(damage, transform.localScale.x);
-                animator.SetBool("isHitted", true);
-                rb.velocity = Vector2.zero;
-                rb.isKinematic = true;
-                Destroy();
-            }
-        }
-        else if (collider2D.CompareTag("Ground"))
-        {
-            animator.SetBool("isHitted", true);
-            rb.velocity = Vector2.zero;
-            rb.isKinematic = true;
-            circleCollider2D.enabled = false;
-        }
-    }
 }
