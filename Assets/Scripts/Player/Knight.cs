@@ -56,13 +56,15 @@ public class Knight : MonoBehaviour
     private bool stopAttack = false;
     private bool jumpAttack;
     private bool knockBack = false;
+    private bool spamDusk;
+    private bool dashCheck = true;
 
     private float horizontalInput;
     private float doubleTapTime;
     private float undamageTime = 1f;
     private float undamageCoolDown;
     private float gravity;
-    private int increaceBackCheck = 1;
+    
     private LevelManager levelManager;
 
     private void Awake() {
@@ -103,7 +105,7 @@ public class Knight : MonoBehaviour
             isWallJumpOver = true;
         }
 
-        if(isWallJumpOver == true && isDashing == false && isHurting == false) {
+        if(isWallJumpOver == true && isDashing == false && isHurting == false && horizontalInput != 0) {
             MoveHandle();
         }
     }
@@ -118,6 +120,14 @@ public class Knight : MonoBehaviour
         if(isGround && jumpAttack) {
             jumpAttack = false;
         }
+
+        if(isGround == true) {
+            dashCheck = true;
+            if(spamDusk == true) {
+                CreateDust();
+                spamDusk = false;
+            }
+        } else {spamDusk = true;}
 
         if(horizontalInput != 0) {
             canMove = true;
@@ -154,12 +164,15 @@ public class Knight : MonoBehaviour
                 }
             }
             if(Input.GetKeyDown(KeyCode.Z)) {
-                if(facingRight == true) {
+                if((isGround == false && dashCheck == true) || isGround == true) {
+                    if(facingRight == true) {
                     isDashing = true;
                     StartCoroutine(Dash(1));
-                } else {
-                    isDashing = true;
-                    StartCoroutine(Dash(-1));
+                    } else {
+                        isDashing = true;
+                        StartCoroutine(Dash(-1));
+                    }
+                    dashCheck = false;
                 }
             }
             if(Input.GetKeyDown(KeyCode.R)) {
@@ -217,7 +230,6 @@ public class Knight : MonoBehaviour
     private void Jump() {
         if (isGround == true && isDashing == false) {
             jumpSound.Play();
-            CreateDust();
             knight_rb.velocity = Vector2.up * jumpForce;
             canJump = true;
         } else if(wallSliding == true) {
@@ -334,4 +346,10 @@ public class Knight : MonoBehaviour
     private void CreateDust() {
         dust.Play();
     }
+
+    // private void OnCollisionEnter2D(Collision2D col) {
+    //     if(col.collider.tag == "Transport") {
+    //         transform.Translate(transform.right * 3 * Time.deltaTime * 3);
+    //     }
+    // }
 }

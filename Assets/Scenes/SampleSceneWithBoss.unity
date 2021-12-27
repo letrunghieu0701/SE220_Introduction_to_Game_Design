@@ -38091,6 +38091,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3370095505352876886, guid: a393a2a56dd574243a9d91fa82615dbb, type: 3}
+      propertyPath: immuneTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3370095505352876887, guid: a393a2a56dd574243a9d91fa82615dbb, type: 3}
       propertyPath: m_Name
       value: Toaster Bot
