@@ -6,7 +6,7 @@ public class Monster : MonoBehaviour
 {
     [Header("Self :")]
     [SerializeField] protected int health;
-    [SerializeField] public float speed;
+    [SerializeField] protected float speed;
     [SerializeField][Range(0f, 10f)] protected float _smoothSpeedTime = 0f;
     [SerializeField] protected float immuneTime = 1f;
     [SerializeField] protected int bodyDamage = 1;
@@ -18,6 +18,7 @@ public class Monster : MonoBehaviour
     [SerializeField] protected bool enableHurtFlashing = true;
 
 
+    [HideInInspector] public bool battleStarted = false;
     protected bool isImmune = false;
     protected float immuneTimer;
     protected bool facingRight = true;
