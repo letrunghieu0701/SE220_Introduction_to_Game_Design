@@ -16,6 +16,8 @@ public class BossRoomControl : MonoBehaviour
         {
             bossGate.GetComponent<BossGateControl>().CloseGate();
             bossGateClosed = true;
+
+            GetComponent<Monster>().battleStarted = true;
         }
 
 

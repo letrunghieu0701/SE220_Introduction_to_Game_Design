@@ -41,5 +41,9 @@ public class MonsterStateMachine
     {
         states[stateOrder].ResetState();
         stateOrder++;
+        if (stateOrder >= states.Count)
+        {
+            stateOrder = 0;
+        }
     }
 }
