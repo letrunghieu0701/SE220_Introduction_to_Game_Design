@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7376478683625929691}
   - component: {fileID: 7376478683625929684}
   - component: {fileID: 7376478683625929688}
-  - component: {fileID: 7376478683625929689}
-  - component: {fileID: 7376478683625929695}
+  - component: {fileID: 3348718435446295211}
+  - component: {fileID: 1610938706}
   m_Layer: 8
   m_Name: Transporter
   m_TagString: Transport
@@ -131,25 +131,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3, y: 0.917572}
   m_EdgeRadius: 0
---- !u!252 &7376478683625929689
-SurfaceEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7376478683625929685}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Speed: 10
-  m_SpeedVariation: 0
-  m_ForceScale: 0.05
-  m_UseContactForce: 1
-  m_UseFriction: 1
-  m_UseBounce: 1
---- !u!114 &7376478683625929695
+--- !u!114 &3348718435446295211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,8 +140,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7376478683625929685}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf30da9c6793dc24f93f5992c7e97ceb, type: 3}
+  m_Script: {fileID: 11500000, guid: d879da21e2568c44ba1e955c8a7f37b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  direction: 2
+  speed: 5
+  clockwise: 1
+--- !u!50 &1610938706
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376478683625929685}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -15,7 +15,7 @@ public class Bringer_death : MonoBehaviour
     [SerializeField] private float movementDistance = 3f;
     [Header("Timer")]
     [SerializeField] private float attackCoolDown = 2f;
-    [SerializeField] private float destroyObjAfterDieDelay = 3f;
+    [SerializeField] private float destroyObjAfterDieDelay = 1f;
 
     private Animator ani;
 
@@ -91,16 +91,6 @@ public class Bringer_death : MonoBehaviour
         }
     }
 
-    private void DeleteGameObjDelay()
-    {
-        Invoke("DeleteGameObj", destroyObjAfterDieDelay);
-    }
-
-    private void DeleteGameObj()
-    {
-        Destroy(this.gameObject);
-    }
-
     public void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "Player") {
             col.GetComponent<Health>().TakeDamage(damage, transform.position);
@@ -108,7 +98,7 @@ public class Bringer_death : MonoBehaviour
     }
 
     private IEnumerator enable() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(destroyObjAfterDieDelay);
         gameObject.SetActive(false);
         Destroy(gameObject);
     }

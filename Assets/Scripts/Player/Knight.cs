@@ -17,7 +17,6 @@ public class Knight : MonoBehaviour
     [SerializeField] private float wallSlidingSpeed;
     [SerializeField] private float xWallJumpForce;
     [SerializeField] private float dashDistance = 8f;
-    [SerializeField] private float knockBackDistance = 1.5f;
     [SerializeField] private float knockBackForce = 0.5f;
     [SerializeField] private ParticleSystem dust;
 
@@ -26,6 +25,7 @@ public class Knight : MonoBehaviour
     [SerializeField] private float dashingTime = 0.4f;
     [SerializeField] private float stopHorizontalTime = 0.5f;
     [SerializeField] private float stopAttackTime = 0.3f;
+    [SerializeField] private float HurtingTimeCoolDown = 1.5f;
     [Header("Sound")]
     [SerializeField] private AudioSource jumpSound;
     [SerializeField] private AudioSource cutSound;
@@ -61,7 +61,7 @@ public class Knight : MonoBehaviour
 
     private float horizontalInput;
     private float doubleTapTime;
-    private float undamageTime = 1f;
+    private float knockBackTime = 1f;
     private float undamageCoolDown;
     private float gravity;
     
@@ -105,7 +105,7 @@ public class Knight : MonoBehaviour
             isWallJumpOver = true;
         }
 
-        if(isWallJumpOver == true && isDashing == false && isHurting == false && horizontalInput != 0) {
+        if(isWallJumpOver == true && isDashing == false && isDead == false && isHurting == false) {
             MoveHandle();
         }
     }
@@ -153,7 +153,7 @@ public class Knight : MonoBehaviour
     }
 
     private void KeyHandle() {
-        if(isDead == false && isHurting == false) {
+        if(isDead == false) {
             if(Input.GetKeyDown(KeyCode.Space) && backTouching == false) {
                 Jump();
             }
@@ -175,9 +175,10 @@ public class Knight : MonoBehaviour
                     dashCheck = false;
                 }
             }
-            if(Input.GetKeyDown(KeyCode.R)) {
-                transform.position = respawnPoint;
-            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.R)) {
+            transform.position = respawnPoint;
         }
     }
 
@@ -304,18 +305,23 @@ public class Knight : MonoBehaviour
         } else if(objectPos.x <= transform.position.x && transform.localScale.x > 0) {
             Flip();
         }
-        StartCoroutine(HurtingTime(knockBackDistance));
+        
         knight_rb.velocity = new Vector2(-transform.localScale.x * knockBackForce, knockBackForce);
+        StartCoroutine(HurtingTime(HurtingTimeCoolDown));
     }
 
     private IEnumerator Dash(float dir) {
+        
         if(isDashing == true) {
             dashSound.Play();
             CreateDust();
-            knight_rb.velocity = new Vector2(knight_rb.velocity.x, knight_rb.velocity.y);
-            knight_rb.AddForce(new Vector2(dashDistance * dir, knight_rb.velocity.y), ForceMode2D.Impulse);
+            gravity = knight_rb.gravityScale;
+            knight_rb.gravityScale = 0;
+            knight_rb.velocity = new Vector2(knight_rb.velocity.x, 0f);
+            knight_rb.AddForce(new Vector2(dashDistance * dir, 0f), ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(dashingTime);
+        knight_rb.gravityScale = gravity;
         isDashing = false;
     }
 
@@ -346,10 +352,4 @@ public class Knight : MonoBehaviour
     private void CreateDust() {
         dust.Play();
     }
-
-    // private void OnCollisionEnter2D(Collision2D col) {
-    //     if(col.collider.tag == "Transport") {
-    //         transform.Translate(transform.right * 3 * Time.deltaTime * 3);
-    //     }
-    // }
 }

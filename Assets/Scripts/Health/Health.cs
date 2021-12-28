@@ -37,7 +37,6 @@ public class Health : MonoBehaviour
                 hurtSound.Play();
                 ani.SetTrigger("hurt");
                 knight.setAttackToFalse();
-                knight.setJumpAttackToFalse();
                 knight.DoKnockBack(objectPos);
                 StartCoroutine(Invunerability());
             } else {
@@ -70,7 +69,6 @@ public class Health : MonoBehaviour
     private IEnumerator enable() {
         yield return new WaitForSeconds(1f);
         knight.SetIsDead(false);
-        knight.enabled = true;
         Destroy(gameObject);
         LevelManager.instance.Respawn();
         Life.lifesCount -= 1;
