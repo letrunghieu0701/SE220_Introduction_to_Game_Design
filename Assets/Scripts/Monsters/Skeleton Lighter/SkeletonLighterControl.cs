@@ -40,6 +40,14 @@ public class SkeletonLighterControl : Monster
         ShovelHitBox.GetComponent<MonsterBody>().bodyDamage = shovelDamage;
     }
 
+    private void Update() {
+        //TEST
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            TakeDamage(10);
+        }
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
