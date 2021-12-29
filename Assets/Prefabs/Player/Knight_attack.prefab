@@ -4844,7 +4844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1174596562}
   - component: {fileID: 1174596563}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4878,7 +4878,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.23610115, y: -0.070457816}
+  m_Offset: {x: -0.23610115, y: -0.019420624}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -4889,7 +4889,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5277977, y: 1.380451}
+  m_Size: {x: 0.5277977, y: 1.3116646}
   m_EdgeRadius: 0
 --- !u!1 &1670489086
 GameObject:
@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 233044028}
   m_Layer: 0
   m_Name: SwordHitBox
-  m_TagString: Untagged
+  m_TagString: Sword
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5146,7 +5146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.093447804, y: -0.60431015}
+  m_Offset: {x: 0.093447804, y: -0.56972504}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5157,7 +5157,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5141485, y: 1.2050011}
+  m_Size: {x: 0.5141485, y: 1.296833}
   m_EdgeRadius: 0
 --- !u!50 &7300436517680845056
 Rigidbody2D:
@@ -5204,13 +5204,13 @@ MonoBehaviour:
   wallSlidingSpeed: 3
   xWallJumpForce: 3
   dashDistance: 5
-  knockBackDistance: 0.5
   knockBackForce: 5
   dust: {fileID: 20391396}
   wallJumpCoolDown: 0.05
   dashingTime: 0.4
   stopHorizontalTime: 0.3
   stopAttackTime: 0.4
+  HurtingTimeCoolDown: 0.5
   jumpSound: {fileID: 6091464707588047821}
   cutSound: {fileID: -521372961558225424}
   dashSound: {fileID: -5949447295500189063}

@@ -17,6 +17,8 @@ TagManager:
   - Gem
   - Heart
   - Life
+  - Transport
+  - Sword
   layers:
   - Default
   - TransparentFX

@@ -105,7 +105,7 @@ public class Knight : MonoBehaviour
             isWallJumpOver = true;
         }
 
-        if(isWallJumpOver == true && isDashing == false && isDead == false && isHurting == false) {
+        if(isWallJumpOver == true && isDashing == false && isDead == false && isHurting == false && horizontalInput != 0) {
             MoveHandle();
         }
     }
@@ -259,7 +259,7 @@ public class Knight : MonoBehaviour
 
     void Attack() {
         
-        if(isWall == false && isGround == true && !this.knight_ani.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
+        if(isGround == true && !this.knight_ani.GetCurrentAnimatorStateInfo(0).IsTag("Attack")) {
             cutSound.Play();
             isAttack = true;
         }
