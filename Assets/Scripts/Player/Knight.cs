@@ -147,8 +147,11 @@ public class Knight : MonoBehaviour
         }
 
         if(isDashing == true && isWall == true) {
-            knight_rb.gravityScale = gravity;
             isDashing = false;
+        }
+
+        if(isDashing == false) {
+            knight_rb.gravityScale = gravity;
         }
     }
 
@@ -233,7 +236,7 @@ public class Knight : MonoBehaviour
             jumpSound.Play();
             knight_rb.velocity = Vector2.up * jumpForce;
             canJump = true;
-        } else if(wallSliding == true) {
+        } else if(wallSliding == true && isDashing == false) {
             wallJumping = true;
             jumpSound.Play();
             Invoke("setWallJumpToFalse", wallJumpCoolDown);
@@ -311,17 +314,14 @@ public class Knight : MonoBehaviour
     }
 
     private IEnumerator Dash(float dir) {
-        
         if(isDashing == true) {
             dashSound.Play();
             CreateDust();
-            gravity = knight_rb.gravityScale;
             knight_rb.gravityScale = 0;
             knight_rb.velocity = new Vector2(knight_rb.velocity.x, 0f);
             knight_rb.AddForce(new Vector2(dashDistance * dir, 0f), ForceMode2D.Impulse);
         }
         yield return new WaitForSeconds(dashingTime);
-        knight_rb.gravityScale = gravity;
         isDashing = false;
     }
 

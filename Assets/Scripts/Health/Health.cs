@@ -68,7 +68,6 @@ public class Health : MonoBehaviour
 
     private IEnumerator enable() {
         yield return new WaitForSeconds(1f);
-        knight.SetIsDead(false);
         Destroy(gameObject);
         LevelManager.instance.Respawn();
         Life.lifesCount -= 1;
