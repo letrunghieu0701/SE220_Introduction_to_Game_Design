@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   speed: 0
+  _smoothSpeedTime: 0
   immuneTime: 1
   bodyDamage: 1
   detectionRange: {fileID: 7099047111623680342}
@@ -160,6 +161,8 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
   flashingDelay: 0.3
   enableHurtFlashing: 1
+  battleStarted: 0
+  isDead: 0
   fireBall: {fileID: 3004532975229214779, guid: b47158f74e358af478d8c48f57a1350f, type: 3}
   shootPos: {fileID: 7099047111846316089}
   bulletDamage: 1
@@ -293,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Size.x
-      value: 16.542118
+      value: 19.947353
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Size.y
@@ -301,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Offset.x
-      value: 0.18227577
+      value: -1.5203419
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Offset.y
