@@ -361,6 +361,18 @@ public class AssasinControl : Monster
                 immuneToTakeDamage = false;
             }
         }
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("appearing"))
+        {
+            if (teleAttackCount + 1 >= teleAttackTimes)
+            {
+                body.SetActive(true);
+                immuneToTakeDamage = false;
+            }
+            else
+            {
+                immuneToTakeDamage = false;
+            }
+        }
         else
         {
             body.SetActive(true);

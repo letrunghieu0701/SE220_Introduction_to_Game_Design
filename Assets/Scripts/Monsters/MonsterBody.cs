@@ -15,4 +15,13 @@ public class MonsterBody : MonoBehaviour
             damaged = true;
         }    
     }
+
+    private void OnTriggerStay2D(Collider2D collider2D) 
+    {
+        if (collider2D.CompareTag("Player"))
+        {
+            collider2D.GetComponent<Health>().TakeDamage(bodyDamage, transform.position);
+            damaged = true;
+        }    
+    }
 }
