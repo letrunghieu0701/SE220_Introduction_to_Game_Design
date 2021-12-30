@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   speed: 10
+  _smoothSpeedTime: 0
   immuneTime: 1
   bodyDamage: 1
   detectionRange: {fileID: 5537036779105659533}
@@ -178,6 +179,8 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
   flashingDelay: 0.3
   enableHurtFlashing: 1
+  battleStarted: 0
+  isDead: 0
   normalSpeed: 5
   crazySpeed: 40
   normalSpeedTime: 0.7

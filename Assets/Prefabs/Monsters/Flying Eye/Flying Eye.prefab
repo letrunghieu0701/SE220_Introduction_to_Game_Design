@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01a1d317ae54c1848a1c74960803087c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 7
+  health: 5
   speed: 0
   _smoothSpeedTime: 0
   immuneTime: 1
@@ -133,8 +133,10 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
   flashingDelay: 0.3
   enableHurtFlashing: 1
+  battleStarted: 0
+  isDead: 0
   normalSpeed: 4
-  attackingSpeed: 12
+  attackingSpeed: 8
   rightBound: {fileID: 6835934874848201280}
   leftBound: {fileID: 6835934874052548568}
   stayStillTime0: 0.65
@@ -174,7 +176,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.092847824, y: 0}

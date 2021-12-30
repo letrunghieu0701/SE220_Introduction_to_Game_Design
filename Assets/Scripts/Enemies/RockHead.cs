@@ -73,7 +73,9 @@ public class RockHead : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D col) {
-        Stop();
+        if(col.tag == "Ground") {
+            Stop();
+        }
     }
 
     private void Stop() {

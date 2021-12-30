@@ -155,7 +155,7 @@ MonoBehaviour:
   speed: 3
   movementDistance: 3
   attackCoolDown: 2
-  destroyObjAfterDieDelay: 3
+  destroyObjAfterDieDelay: 1
 --- !u!1 &2077371593011541840
 GameObject:
   m_ObjectHideFlags: 0
