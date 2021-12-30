@@ -12,6 +12,7 @@ public class FireTrap : MonoBehaviour
 
     private Animator ani;
     private SpriteRenderer spiteRen;
+    private GameObject flameAni;
 
     private bool triggered;
     private bool active;
@@ -21,11 +22,13 @@ public class FireTrap : MonoBehaviour
     private void Awake() {
         ani = GetComponent<Animator>();
         spiteRen = GetComponent<SpriteRenderer>();
+        flameAni = gameObject.transform.GetChild(0).gameObject;
     }
 
     private void FixedUpdate() {
         if(ani) {
             ani.SetBool("activated", active);
+            flameAni.SetActive(active);
         }
     }
 
