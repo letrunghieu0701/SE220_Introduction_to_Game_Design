@@ -10,6 +10,7 @@ public class Score : MonoBehaviour
     void Start()
     {
         text = GetComponent<Text>();
+        gemAmount = LevelManager.instance.gemAmount;
     }
 
     void Update()

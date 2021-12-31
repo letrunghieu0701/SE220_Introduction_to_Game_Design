@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class SwitchLevel : MonoBehaviour
 {
     [SerializeField] private string nextLevelToLoad;
-    [SerializeField] private float loadSceneDelay = 2.0f; 
     [SerializeField] private Vector2 nextLevelPlayerPosition;
 
     private LevelManager levelManager;
@@ -18,18 +17,9 @@ public class SwitchLevel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider) 
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.CompareTag("Player"))
         {
-            Invoke("LoadNextLevel", loadSceneDelay);
-        }
-    }
-
-    private void LoadNextLevel()
-    {
-        if (nextLevelToLoad != null && nextLevelToLoad != "")
-        {
-            levelManager.respawnPoint = nextLevelPlayerPosition;
-            SceneManager.LoadScene(nextLevelToLoad);
+            levelManager.LoadNextLevel(nextLevelPlayerPosition, nextLevelToLoad);
         }
     }
 }
