@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3370095505352876887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 152.42, y: 33.39, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 791923799491355122}
   - {fileID: 2961684449915213523}
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c6ca4345decb74d8f56b175b82cc92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
   speed: 0
   _smoothSpeedTime: 0
   immuneTime: 0
@@ -178,8 +178,9 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
   flashingDelay: 0.3
   enableHurtFlashing: 1
+  battleStarted: 0
   isDead: 0
-  nextBeamDelay: 1.5
+  nextBeamDelay: 2
 --- !u!1001 &3370095505357238608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -382,7 +383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Size.x
-      value: 3.1567078
+      value: 3.6615295
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Size.y
@@ -390,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Offset.x
-      value: 0.18586731
+      value: 0.4382782
       objectReference: {fileID: 0}
     - target: {fileID: 2610265335527874060, guid: 9b8e8ec223748a746ad041b6ad8c58b0, type: 3}
       propertyPath: m_Offset.y

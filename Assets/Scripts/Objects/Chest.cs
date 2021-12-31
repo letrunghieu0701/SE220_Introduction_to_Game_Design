@@ -6,8 +6,8 @@ public class Chest : MonoBehaviour
 {
     private Animator ani;
     private float workingTime = 1f;
-    private float stopWorkingTime = 2f;
-    private float delayTime = 2.5f;
+    private float stopWorkingTime = 3f;
+    private float delayTime = 3.5f;
     private float timeCoolDown;
 
     private void Awake() {

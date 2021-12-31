@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52e2a01dca8f0a4391f7405d6e0200c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 10
   speed: 10
   _smoothSpeedTime: 0
   immuneTime: 0
@@ -181,6 +181,8 @@ MonoBehaviour:
   flashMat: {fileID: 2100000, guid: 47fc5a52aba2eb947973d0a555be372f, type: 2}
   flashingDelay: 0.3
   enableHurtFlashing: 1
+  battleStarted: 0
+  isDead: 0
   rightBound: {fileID: 7301511211594633808}
   leftBound: {fileID: 7409408395264014183}
   restAfterAttackDelay: 1
@@ -304,7 +306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2885385765821604898, guid: 405c51bb44786bc4eb810d2421eaf6df, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.38
+      value: 1.07
       objectReference: {fileID: 0}
     - target: {fileID: 2885385765821604898, guid: 405c51bb44786bc4eb810d2421eaf6df, type: 3}
       propertyPath: m_LocalPosition.y
@@ -446,11 +448,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3138269516563459100, guid: c2c7c9acbce73184cae57067574dc9b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.96
+      value: -3.58
       objectReference: {fileID: 0}
     - target: {fileID: 3138269516563459100, guid: c2c7c9acbce73184cae57067574dc9b3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.04
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 3138269516563459100, guid: c2c7c9acbce73184cae57067574dc9b3, type: 3}
       propertyPath: m_LocalPosition.z
