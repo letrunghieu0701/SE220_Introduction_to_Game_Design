@@ -62,7 +62,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3c282d25092e348b7d5dd5f53b5bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 80
   speed: 13
   _smoothSpeedTime: 0
   immuneTime: 0
@@ -185,9 +185,17 @@ MonoBehaviour:
   enableHurtFlashing: 1
   battleStarted: 0
   isDead: 0
+  Lights:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bossRoomLight: {fileID: 0}
   rightBound: {fileID: 5353565975314891544}
   leftBound: {fileID: 5317629165573544068}
-  restB4BattleTime: 5
+  restB4BattleTime: 7
   restBtweenStatesTime: 2
   restB4Appearing: 1.5
   restB4Slamming: 1

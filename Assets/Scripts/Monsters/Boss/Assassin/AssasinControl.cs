@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class AssasinControl : Monster
 {
+    [Header("Light Control :")]
+    [SerializeField] private List<GameObject> Lights;
+    [SerializeField] private GameObject bossRoomLight;
+
     [Header("Assassin self :")]
     [SerializeField] private GameObject rightBound;
     [SerializeField] private GameObject leftBound;
@@ -134,6 +139,27 @@ public class AssasinControl : Monster
         if (battleStarted && !beginBattle)
         {
             state.CountDown();
+            for (int i = 0; i < 5; i++)
+            {
+                if (i >= (((state.timer/state.time) * 10) % 5))
+                {
+                    if (i == 0)
+                    {
+                        Lights[i].SetActive(true);
+                        Lights[Lights.Count - 1].SetActive(true);
+                        for (int j = 0; j < Lights.Count; j++)
+                        {
+                            Lights[j].GetComponent<Light2D>().intensity = 0.5f;
+                        }
+                        bossRoomLight.SetActive(true);
+                    }
+                    else
+                    {
+                        Lights[i].SetActive(true);
+                    }
+                }
+            }
+
             if (state.timeSup)
             {
                 beginBattle = true;

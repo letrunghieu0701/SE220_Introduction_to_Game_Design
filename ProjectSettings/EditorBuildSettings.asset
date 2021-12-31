@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level_1_Complete.unity
     guid: f43d401b3e9947444a8bb53069250aab
   - enabled: 1
+    path: Assets/Scenes/Level_2_newTile.unity
+    guid: fbb7bfed1e563974d9096867ebe5a3ea
+  - enabled: 0
     path: Assets/Scenes/SampleSceneWithBossCUATHEKY.unity
     guid: fc132fca92e341f4e9db09a0900316a9
   m_configObjects: {}

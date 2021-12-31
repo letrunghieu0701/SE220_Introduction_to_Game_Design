@@ -170,6 +170,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.176157
       objectReference: {fileID: 0}
+    - target: {fileID: 2813851759883852105, guid: 9059fe5be40e98b499e68e5253e32df6, type: 3}
+      propertyPath: bodyDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4327982502222781998, guid: 9059fe5be40e98b499e68e5253e32df6, type: 3}
       propertyPath: m_Name
       value: Monster Body

@@ -52,7 +52,11 @@ public class OldGolemControl : Monster
     // Update is called once per frame
     void Update()
     {
-        
+        //TEST
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            TakeDamage(10);
+        }
     }
 
     protected override void FixedUpdate()
