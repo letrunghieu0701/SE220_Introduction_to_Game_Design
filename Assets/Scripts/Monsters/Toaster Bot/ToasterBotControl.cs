@@ -6,6 +6,7 @@ public class ToasterBotControl : Monster
 {
     [Header("Self:")]
     [SerializeField] private float nextBeamDelay = 1.0f;
+    [SerializeField] private bool DestroyDelay = false;
 
     private State nextBeamDelayState;
 
@@ -17,6 +18,11 @@ public class ToasterBotControl : Monster
         nextBeamDelayState = new State("next beam delay", nextBeamDelay);
         nextBeamDelayState.ResetState();
         nextBeamDelayState.timer = 0f;
+
+        if (DestroyDelay)
+        {
+            DeleteGameObjDelay();
+        }
     }
 
     // Update is called once per frame

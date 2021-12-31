@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour
     [SerializeField] protected int bodyDamage = 1;
     [SerializeField] protected GameObject detectionRange;
     [SerializeField] protected GameObject body;
-    [SerializeField] protected float destroyObjAfterDieDelay = 5f;
+    [SerializeField] public float destroyObjAfterDieDelay = 5f;
     [SerializeField] protected Material flashMat;
     [SerializeField] protected float flashingDelay = 0.3f;
     [SerializeField] protected bool enableHurtFlashing = true;
