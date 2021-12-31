@@ -57,6 +57,8 @@ public class LevelManager : MonoBehaviour
     {
         respawnPoint = nextLevelPlayerPosition;
         beginningPoint = nextLevelPlayerPosition;
+        lifeCount = beginningLifeCount;
+        gemAmount = 0;
         levelToLoad = nextLevelToLoad;
 
         sceneTransAnimator.SetTrigger("loadNextScene");
