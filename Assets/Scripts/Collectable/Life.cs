@@ -10,6 +10,7 @@ public class Life : MonoBehaviour
     void Start()
     {
         text = GetComponent<Text>();
+        lifesCount = LevelManager.instance.lifeCount;
     }
 
     void Update()

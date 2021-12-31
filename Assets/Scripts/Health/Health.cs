@@ -69,8 +69,16 @@ public class Health : MonoBehaviour
     private IEnumerator enable() {
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
-        LevelManager.instance.Respawn();
-        Life.lifesCount -= 1;
+        
+        LevelManager.instance.lifeCount --;
+        if (LevelManager.instance.lifeCount < 0)
+        {
+            LevelManager.instance.ReLevel();
+        }
+        else
+        {
+            LevelManager.instance.Respawn();
+        }
     }
 
     private IEnumerator Invunerability() {

@@ -345,7 +345,7 @@ public class Knight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "CheckPoint") {
-            levelManager.respawnPoint = transform.position;
+            levelManager.UpdateCheckPoint(transform.position, Life.lifesCount, Score.gemAmount);
         }
     }
 
