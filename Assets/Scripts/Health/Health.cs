@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Animator ani;
     private Knight knight;
+    private bool startCoroutine = false;
     public float currentHealth { get; private set;}
 
     private void Awake() {
@@ -32,22 +33,26 @@ public class Health : MonoBehaviour
         if(knight.GetIsHurting() == false) {
             currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
             currentHealthBar.fillAmount = currentHealth / 10;
-            
-            if(currentHealth > 0) {
-                hurtSound.Play();
-                ani.SetTrigger("hurt");
-                knight.setAttackToFalse();
-                knight.DoKnockBack(objectPos);
-                StartCoroutine(Invunerability());
-            } else {
-                if(!knight.GetIsDead()) {
-                    dieSound.Play();
-                    ani.SetTrigger("Die");
-                    knight.SetIsDead(true);
-                    knight.enabled = false;
-                    StartCoroutine(enable());
+            if(knight.enabled) {
+                if(currentHealth > 0) {
+                    hurtSound.Play();
+                    ani.SetTrigger("hurt");
+                    knight.setAttackToFalse();
+                    knight.DoKnockBack(objectPos);
+                    StartCoroutine(Invunerability());
+                } else {
+                    if(knight.GetIsDead() == false) {
+                        dieSound.Play();
+                        ani.SetTrigger("Die");
+                        knight.SetIsDead(true);
+                        knight.enabled = false;
+                        if(startCoroutine == false) {
+                            StartCoroutine(enable());
+                        }
+                    }
                 }
             }
+            
         }
     }
 
@@ -67,17 +72,19 @@ public class Health : MonoBehaviour
     }
 
     private IEnumerator enable() {
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        if(startCoroutine == false) {
+            startCoroutine = true;
+            yield return new WaitForSeconds(1f);
         
-        LevelManager.instance.lifeCount --;
-        if (LevelManager.instance.lifeCount < 0)
-        {
-            LevelManager.instance.ReLevel();
-        }
-        else
-        {
-            LevelManager.instance.Respawn();
+            LevelManager.instance.lifeCount --;
+            if (LevelManager.instance.lifeCount < 0)
+            {
+                LevelManager.instance.ReLevel();
+            }
+            else
+            {
+                LevelManager.instance.Respawn();
+            }
         }
     }
 
