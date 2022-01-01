@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerAttack : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class playerAttack : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.C) && coolDownTimer > fireCoolDown && knight.canShoot()) {
+        if(Input.GetKeyDown(KeyCode.C) && coolDownTimer > fireCoolDown && knight.canShoot() && SceneManager.GetActiveScene().buildIndex > 2) {
             Shoot();
         }
 

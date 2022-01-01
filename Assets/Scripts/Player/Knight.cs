@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Knight : MonoBehaviour
 {
@@ -166,7 +167,7 @@ public class Knight : MonoBehaviour
                     StartCoroutine(StopAttack());
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Z)) {
+            if(Input.GetKeyDown(KeyCode.Z) && SceneManager.GetActiveScene().buildIndex > 1) {
                 if((isGround == false && dashCheck == true) || isGround == true) {
                     if(facingRight == true) {
                     isDashing = true;
@@ -345,6 +346,7 @@ public class Knight : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col) {
         if(col.tag == "CheckPoint") {
+            HideIntro.hideText = true;
             levelManager.UpdateCheckPoint(transform.position, Life.lifesCount, Score.gemAmount);
         }
     }
