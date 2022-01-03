@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour
     [SerializeField] protected Material flashMat;
     [SerializeField] protected float flashingDelay = 0.3f;
     [SerializeField] protected bool enableHurtFlashing = true;
+    [SerializeField] protected MonsterHealthBar monsterHealthBar;
 
 
     [HideInInspector] public bool battleStarted = false;
@@ -49,6 +50,11 @@ public class Monster : MonoBehaviour
 
         flashingState = new State("flashing time", flashingDelay);
         flashingState.ResetState();
+
+        if (monsterHealthBar)
+        {
+            monsterHealthBar.SetHealth(health, health);
+        }
     }
 
     protected virtual void FixedUpdate() 
@@ -93,6 +99,10 @@ public class Monster : MonoBehaviour
                 }
 
                 health -= damage;
+                if (monsterHealthBar)
+                {
+                    monsterHealthBar.UpdateHealth(health);
+                }
 
                 if (health <= 0)
                 {

@@ -133,6 +133,10 @@ public class SkeletonLighterControl : Monster
                 }
 
                 health -= damage;
+                if (monsterHealthBar)
+                {
+                    monsterHealthBar.UpdateHealth(health);
+                }
                 _isAnimationFinished = true;
 
                 if (health <= 0)

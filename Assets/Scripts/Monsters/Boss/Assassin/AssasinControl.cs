@@ -12,6 +12,7 @@ public class AssasinControl : Monster
     [Header("Assassin self :")]
     [SerializeField] private GameObject rightBound;
     [SerializeField] private GameObject leftBound;
+    [SerializeField] private GameObject healthBar;
 
     [Header("Rest states:")]
     [SerializeField] private float restB4BattleTime = 5.0f;
@@ -165,6 +166,7 @@ public class AssasinControl : Monster
                 beginBattle = true;
                 immuneToTakeDamage = false;
                 body.SetActive(true);
+                healthBar.SetActive(true);
             }
         }
 
@@ -367,6 +369,7 @@ public class AssasinControl : Monster
     {
         animator.enabled = true;
         spriteRenderer.enabled = true;
+        healthBar.SetActive(true);
     }
 
     private void Disappear()
@@ -375,6 +378,7 @@ public class AssasinControl : Monster
         animator.enabled = false;
         spriteRenderer.enabled = false;
         immuneToTakeDamage = true;
+        healthBar.SetActive(false);
     }
 
     private void SetBodyBack()

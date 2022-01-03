@@ -10,6 +10,7 @@ public class OldGuardianControl : Monster
     [SerializeField] private GameObject chimneySmoke;
     [SerializeField] private float delayBetweenEachSmoke = 0.07f;
     [SerializeField] private GameObject bossGate;
+    [SerializeField] private GameObject healthBar;
 
     [Header("Each State: ")]
     [SerializeField] private float restTime = 5f;
@@ -274,6 +275,7 @@ public class OldGuardianControl : Monster
                     if (state.timeSup)
                     {
                         startBattle = true;
+                        healthBar.SetActive(true);
                         isImmune = false;
                         body.SetActive(true);
                         SlamRange.GetComponent<AttackRangeDetection>().isInRange = false;
@@ -596,6 +598,10 @@ public class OldGuardianControl : Monster
                 }
 
                 health -= damage;
+                if (monsterHealthBar)
+                {
+                    monsterHealthBar.UpdateHealth(health);
+                }
 
                 if (health <= 0)
                 {
