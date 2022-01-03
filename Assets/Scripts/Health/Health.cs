@@ -76,7 +76,7 @@ public class Health : MonoBehaviour
             startCoroutine = true;
             yield return new WaitForSeconds(1f);
         
-            LevelManager.instance.lifeCount --;
+            LevelManager.instance.lifeCount--;
             if (LevelManager.instance.lifeCount < 0)
             {
                 LevelManager.instance.ReLevel();
