@@ -63,6 +63,7 @@ public class LevelManager : MonoBehaviour
 
         sceneTransAnimator.SetTrigger("loadNextScene");
         respawning = false;
+        HideIntro.hideText = false;
     }
 
     private void LoadScene()

@@ -181,9 +181,9 @@ public class Knight : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.R)) {
-            transform.position = respawnPoint;
-        }
+        //if(Input.GetKeyDown(KeyCode.R)) {
+        //    transform.position = respawnPoint;
+        //}
     }
 
     void MoveHandle() {
