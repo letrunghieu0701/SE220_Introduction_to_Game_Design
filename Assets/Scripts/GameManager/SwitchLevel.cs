@@ -22,4 +22,10 @@ public class SwitchLevel : MonoBehaviour
             levelManager.LoadNextLevel(nextLevelPlayerPosition, nextLevelToLoad);
         }
     }
+
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.L)) {
+            levelManager.LoadNextLevel(nextLevelPlayerPosition, nextLevelToLoad);
+        }
+    }
 }

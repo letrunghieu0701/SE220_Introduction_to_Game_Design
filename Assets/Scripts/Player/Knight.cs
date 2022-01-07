@@ -180,10 +180,6 @@ public class Knight : MonoBehaviour
                 }
             }
         }
-
-        //if(Input.GetKeyDown(KeyCode.R)) {
-        //    transform.position = respawnPoint;
-        //}
     }
 
     void MoveHandle() {
@@ -348,6 +344,12 @@ public class Knight : MonoBehaviour
         if(col.tag == "CheckPoint") {
             HideIntro.hideText = true;
             levelManager.UpdateCheckPoint(transform.position, Life.lifesCount, Score.gemAmount);
+        } 
+        if(col.tag == "DeadZone") {
+            isDead = true;
+        }
+        if(col.tag == "Finish") {
+            SceneManager.LoadScene(0);
         }
     }
 

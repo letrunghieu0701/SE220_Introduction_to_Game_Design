@@ -19,10 +19,13 @@ public class Health : MonoBehaviour
     private Animator ani;
     private Knight knight;
     private bool startCoroutine = false;
+    private bool isGodMode = false;
+    private float TempPlayerHealth;
     public float currentHealth { get; private set;}
 
     private void Awake() {
         currentHealth = playerHealth;
+        TempPlayerHealth = playerHealth;
         ani = GetComponent<Animator>();
         knight = GetComponent<Knight>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -31,14 +34,18 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float damage, Vector3 objectPos) {
         if(knight.GetIsHurting() == false) {
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
-            currentHealthBar.fillAmount = currentHealth / 10;
+            if(!isGodMode) {
+                currentHealth = Mathf.Clamp(currentHealth - damage, 0, playerHealth);
+                currentHealthBar.fillAmount = currentHealth / 10;
+            }
             if(knight.enabled) {
                 if(currentHealth > 0) {
                     hurtSound.Play();
                     ani.SetTrigger("hurt");
                     knight.setAttackToFalse();
-                    knight.DoKnockBack(objectPos);
+                    if(!isGodMode) {
+                        knight.DoKnockBack(objectPos);
+                    }
                     StartCoroutine(Invunerability());
                 } else {
                     if(knight.GetIsDead() == false) {
@@ -52,7 +59,15 @@ public class Health : MonoBehaviour
                     }
                 }
             }
-            
+        }
+
+        if(knight.GetIsDead() == true) {
+            dieSound.Play();
+            ani.SetTrigger("Die");
+            knight.enabled = false;
+            if(startCoroutine == false) {
+                StartCoroutine(enable());
+            }
         }
     }
 
@@ -62,8 +77,16 @@ public class Health : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.E)) {
-            TakeDamage(1, transform.position);
+        if(Input.GetKeyDown(KeyCode.I)) {
+            isGodMode = !isGodMode;
+        }
+
+        if(!isGodMode) {
+            spriteRenderer.color = Color.white;
+            SwordHitBoxScript.SwordDamage = 0;
+        } else {
+            SwordHitBoxScript.SwordDamage = 100;
+            spriteRenderer.color = new Color(1, 0, 0, 0.5f);
         }
     }
 
@@ -77,12 +100,13 @@ public class Health : MonoBehaviour
             yield return new WaitForSeconds(1f);
         
             LevelManager.instance.lifeCount--;
-            if (LevelManager.instance.lifeCount < 0)
-            {
-                LevelManager.instance.ReLevel();
-            }
-            else
-            {
+            if (LevelManager.instance.lifeCount < 0) {
+                if(isGodMode == false) {
+                    LevelManager.instance.ReLevel();
+                } else {
+                    LevelManager.instance.Respawn();
+                }
+            } else {
                 LevelManager.instance.Respawn();
             }
         }
